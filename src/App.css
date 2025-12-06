@@ -90,14 +90,6 @@ nav.content-nav .dropdown.expanded > img {
   transform: rotate(180deg);
 }
 
-/* --- UTILITÀ --- */
-
-.hide {
-    display: none !important;
-}
-
-
-
 
 /* Stili condivisi per i bottoni (Livello 1 e 2) */
 nav.user-nav div.level-1, 

@@ -1,12 +1,12 @@
 export interface User{
-    id: number;
-    name : string;
-    surname : string;
+    id?: number;
+    name? : string;
+    surname? : string;
     username : string;
-    email: string;
-    age : number;
-    nationality: string;
-    spoken_languages : string[];
+    email?: string;
+    age? : number;
+    nationality?: string;
+    spoken_languages? : string[];
 }
 
 export class UsersManagment{
@@ -50,7 +50,7 @@ export class UsersManagment{
     getUsersByName(name: string): User[]{
         const filteredUsers : User[] = [];
 
-        for(let u of this.users){
+        for(const u of this.users){
             if(u.name === name)
                 filteredUsers.push(u);
         }
@@ -61,7 +61,7 @@ export class UsersManagment{
     getUsersByNameAndSurname(name: string, surname: string): User[]{
         const filteredUsers : User[] = [];
 
-        for(let u of this.users){
+        for(const u of this.users){
             if(u.name === name && u.surname === surname)
                 filteredUsers.push(u);
         }
@@ -72,7 +72,7 @@ export class UsersManagment{
     getUsersByNationality(nationality: string): User[]{
         const filteredUsers : User[] = [];
 
-        for(let u of this.users){
+        for(const u of this.users){
             if(u.nationality === nationality)
                 filteredUsers.push(u);
         }
@@ -83,7 +83,7 @@ export class UsersManagment{
     getUsersByUsername(username: string): User[]{
         const filteredUsers : User[] = [];
 
-        for(let u of this.users){
+        for(const u of this.users){
             if(u.username === username)
                 filteredUsers.push(u);
         }
