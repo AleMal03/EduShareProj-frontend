@@ -4,27 +4,29 @@ import ContentNav from "./components/ContentNav"
 import UserNav from "./components/UserNav"
 
 import type { ContentNavItem } from "./App";
+import type {User} from "./data/data-model.ts";
 
 interface HeaderProps{
-    user : string;
+    currentUser : User|null;
+	onLogin: (s:string) => void;
+	onLogout: () => void;
     onNav: (c : ContentNavItem) => void;
 }
 
-export function Header({user, onNav} : HeaderProps) : ReactElement{
+export default function Header({currentUser, onLogin, onLogout, onNav} : HeaderProps) : ReactElement{
 
     return (
     <header>
         <div className="left-section">
             <div className="logo" onClick = {() => onNav("home")}>
-                <img src="/images/logo.jpeg"
-                    alt="logo"/>
+                <img src="/images/logo.jpeg" alt="logo"/>
             </div>
             
-            <ContentNav user={user} onNav={onNav}/>
+            <ContentNav currentUser={currentUser} onNav={onNav}/>
         </div>
 
         <div className="right-section">
-            <UserNav user={user} onNav={onNav}/>
+            <UserNav currentUser={currentUser} onLogout={onLogout} onLogin={onLogin} onNav={onNav}/>
         </div>
     </header>
     );

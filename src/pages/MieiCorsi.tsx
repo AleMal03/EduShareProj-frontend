@@ -5,7 +5,7 @@ import { user_mgr } from "./../data/data";
 import type { Corso as CorsoInterface, User } from "./../data/data-model";
 import { Corso } from "./../components/Corso";
 
-export function Miei_Corsi() {
+export default function MieiCorsi() {
     const id_user = 1;
     const user: User | undefined = user_mgr.getUserById(id_user);
     

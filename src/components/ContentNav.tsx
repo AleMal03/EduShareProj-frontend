@@ -1,69 +1,57 @@
 import {useState} from "react";
 import type { ReactElement } from "react";
 
-import type { ContentNavItem } from "./../App";
+import type {ContentNavItem} from "./../App";
+import type {User} from "../data/data-model.ts";
 
 interface ContentNavProps{
-    user : string;
+   	currentUser:User|null;
     onNav: (c : ContentNavItem) => void;
 }
 
-function ContentNav({user, onNav} : ContentNavProps): ReactElement {
+export default function ContentNav({currentUser, onNav} : ContentNavProps): ReactElement {
     // utilizzata per modificare il menu dinamicamente tramite l'effetto Hover
     const [isHoverItem, setIsHoverItem] = useState<boolean>(false);
 
     return (
-    
-    // onMouseLeave() su nav serve a "nascondere"(state isHoverItem) se il mouse
-    // non "punta" più sul menù
+    // onMouseLeave() su nav serve a "nascondere"(state isHoverItem) se il mouse non "punta" più sul menù
     <nav className="content-nav" onMouseLeave={() => setIsHoverItem(false)}>
 
         {/*Se con il mouse "punto" alla prima voce Menu, si aprirà tutto il menu a tendina*/}
         <div className="level-1"
-             onClick={() => {isHoverItem ? setIsHoverItem(false) : setIsHoverItem(true)}}
+             onClick={() => {setIsHoverItem(!isHoverItem)}}
              onMouseEnter={() => setIsHoverItem(true)} >
 
             <span className="dropdown-text">Menu</span>
             <span className={isHoverItem ? "dropdown expanded" : "dropdown"}>
-                 <img
-                    alt="dropdown"
-                    src="/images/down-arrow.png"/>
+                 <img alt="dropdown" src="/images/down-arrow.png"/>
             </span>
         </div>
 
-        
+
         {/* Mostriamo l'intero contenitore solo se isHoverItem è true */}
-        <div className={`submenu-container ${isHoverItem ? "" : "hide"}`}>
-                
-            <div className="level-2" onClick={ () => {
-                    onNav("home");          // prima funzione
-                    setIsHoverItem(false);  // seconda funzione
-                }} >Home</div>
 
-            <div className="level-2" onClick={ () => {
-                    onNav("miei corsi");          // prima funzione
-                    setIsHoverItem(false);  // seconda funzione
-                }} >Miei Corsi</div>
-
-            <div className="level-2" onClick={ () => {
-                    onNav("corsi comprati");          // prima funzione
-                    setIsHoverItem(false);  // seconda funzione
-                }} >Corsi Comprati</div>
-
-            <div className="level-2" onClick={ () => {
-                    onNav("mie lezioni");          // prima funzione
-                    setIsHoverItem(false);  // seconda funzione
-                }} >Mie Lezioni</div>
-
-            <div className="level-2" onClick={ () => {
-                    onNav("lezioni comprate");          // prima funzione
-                    setIsHoverItem(false);  // seconda funzione
-                }} >Lezioni Comprate</div>
-
-        </div>
+		{isHoverItem && <SubMenu currentUser={currentUser} onNav={onNav}/>}
 
     </nav>
     );
 }
 
-export default ContentNav;
+interface SubMenuProps{
+	currentUser:User|null;
+	onNav: (c:ContentNavItem) => void;
+}
+
+function SubMenu({currentUser, onNav}:SubMenuProps){
+	return <div className="submenu-container">
+
+		<div className="level-2" onClick={ () => {onNav("home");}}>Home</div>
+		{currentUser && (<>
+			<div className="level-2" onClick={ () => {onNav("miei corsi");}}>Miei Corsi</div>
+			<div className="level-2" onClick={ () => {onNav("mie lezioni");}}>Mie Lezioni</div>
+			<div className="level-2" onClick={ () => {onNav("corsi comprati");}}>Corsi Comprati</div>
+			<div className="level-2" onClick={ () => {onNav("lezioni comprate");}}>Lezioni Comprate</div>
+		</>)}
+
+	</div>
+}
