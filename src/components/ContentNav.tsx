@@ -27,7 +27,7 @@ function ContentNav({user, onNav} : ContentNavProps): ReactElement {
             <span className={isHoverItem ? "dropdown expanded" : "dropdown"}>
                  <img
                     alt="dropdown"
-                    src="/down-arrow.png"/>
+                    src="/images/down-arrow.png"/>
             </span>
         </div>
 

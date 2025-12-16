@@ -4,7 +4,7 @@ import type {User} from "./../data/data-model"
 import {useState} from "react"
 
 export function Gestione_Profilo(){
-    const id_user = 1;
+    const id_user = 2;
 
     const [user, setUser] = useState<User | undefined>(user_mgr.getUserById(id_user));
 

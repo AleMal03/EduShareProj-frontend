@@ -16,7 +16,7 @@ export function Header({user, onNav} : HeaderProps) : ReactElement{
     <header>
         <div className="left-section">
             <div className="logo" onClick = {() => onNav("home")}>
-                <img src="/logo.jpeg"
+                <img src="/images/logo.jpeg"
                     alt="logo"/>
             </div>
             

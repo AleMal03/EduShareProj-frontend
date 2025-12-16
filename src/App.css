@@ -288,3 +288,96 @@ form.create-collection-request {
   column-gap: 10px;
 }
 /* ------------------ FINE ModificaDatiForm ------------------*/
+
+
+
+
+
+/* ------------------ Inizio Corso ----------------------*/
+
+/* 1. GRIGLIA CONTENITORE (La classe che avvolge i corsi nel file padre) */
+.lista-corsi {
+    padding: 20px;
+    display: grid;
+    /* Crea colonne automatiche: minimo 280px, se c'è spazio si allargano */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 25px; /* Spazio tra le card */
+}
+
+/* 2. CARD DEL SINGOLO CORSO */
+.corso-card {
+    background-color: white; /* Stacco rispetto allo sfondo #e1efef del main */
+    border: 2px solid #cdcf93; /* Riprendo il bordo usato nella tua nav */
+    border-radius: 20px; /* Riprendo il radius dei tuoi form */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Spinge il footer in basso se il contenuto varia */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.corso-card:hover {
+    transform: translateY(-5px); /* Leggero effetto sollevamento */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: rgb(210, 0, 90); /* Riprendo il colore dei titoli form all'hover */
+}
+
+/* 3. HEADER (Titolo e Prof) */
+.corso-header h1 {
+    font-size: 1.3rem;
+    margin: 0 0 5px 0;
+    color: rgb(210, 0, 90); /* Il tuo colore standard per i titoli */
+    text-align: left; /* O center, a gusto */
+}
+
+.corso-header .sub-text {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    font-style: italic;
+}
+
+/* 4. BODY (Immagine) */
+.corso-body {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(205, 207, 147, 0.2); /* Un fondo leggero dietro l'immagine */
+    border-radius: 15px;
+    padding: 10px;
+    height: 140px; /* Altezza fissa per allineare le card */
+}
+
+.corso-body img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* 5. FOOTER (Difficoltà e Bottone) */
+.corso-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Assicura che stia sempre in fondo */
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+}
+
+.corso-footer p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Il bottone eredita già il tuo stile globale, 
+   qui lo ridimensiono leggermente se serve */
+.corso-footer button {
+    margin: 0; /* Rimuovo il margin-top globale per allinearlo al testo */
+    padding: 5px 15px;
+    font-size: 0.8rem;
+}
+
+/* ------------------ Fine Corso ------------------------*/
