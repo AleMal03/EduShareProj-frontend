@@ -1,22 +1,20 @@
 interface GenericUser{
-    name: string;
+	name: string;
 	surname: string;
 	username: string;
 	email: string;
     age?: number;
     nationality?: string;
     spokenLanguages: string[];
+	ruoli: string[];
 }
 
 
 // User <- {Student, Teacher}
 
-export interface Student extends GenericUser{
-	role: "STUDENT";	// Discriminante
-}
+export type Student = GenericUser	// Student è espandibile
 
 export interface Teacher extends GenericUser{
-	role: "TEACHER";	// Discriminante
 	aboutMe: string;
 	titoliStudio: string[];
 }
