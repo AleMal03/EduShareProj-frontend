@@ -1,4 +1,4 @@
-interface GenericUser{
+export interface User{
     name: string;
 	surname: string;
 	username: string;
@@ -11,17 +11,15 @@ interface GenericUser{
 
 // User <- {Student, Teacher}
 
-export interface Student extends GenericUser{
+export interface Student extends User{
 	role: "STUDENT";	// Discriminante
 }
 
-export interface Teacher extends GenericUser{
+export interface Teacher extends User{
 	role: "TEACHER";	// Discriminante
 	aboutMe: string;
 	titoliStudio: string[];
 }
-
-export type User = Student | Teacher;
 
 export interface File{
 	nome: string;
