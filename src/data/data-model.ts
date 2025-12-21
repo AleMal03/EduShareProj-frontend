@@ -1,12 +1,14 @@
 interface GenericUser{
-	name: string;
-	surname: string;
+	nome: string;
+	cognome: string;
 	username: string;
 	email: string;
-	age?: number;
-	nationality?: string;
-	spokenLanguages: string[];
+	eta?: number;
+	nazionalita?: string;
+	lingueParlate: string[];
 	ruoli: string[];
+	credito: number;
+	fotoProfilo: string;
 }
 
 
