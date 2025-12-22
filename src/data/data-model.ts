@@ -11,8 +11,7 @@ interface GenericUser{
 	fotoProfilo: string;
 }
 
-
-// User <- {Student, Teacher}
+// GenericUser <- {Student, Teacher}
 
 export type Student = GenericUser	// Student è espandibile
 
@@ -30,6 +29,7 @@ export interface File{
 }
 
 export interface Corso{
+	owner:string,
 	id: number;
 	nome: string;
 	prezzo: number;

@@ -22,7 +22,6 @@ export async function queryPost<T, B = unknown>(path:string, data:B):Promise<T>{
 				throw new Error(errorData?.message || `Errore richiesta: ${res.status}`);
 			}
 		})
-		.then((d:T) => d)
 }
 
 /**
@@ -43,5 +42,4 @@ export async function queryGet<T>(path:string):Promise<T>{
 				throw new Error(errorData?.message || `Errore richiesta: ${res.status}`);
 			}
 		})
-		.then((d:T) => d)
 }

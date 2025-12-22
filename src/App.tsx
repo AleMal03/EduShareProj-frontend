@@ -82,7 +82,7 @@ function App() {
 			})
 			.catch((err:Error) => {
 				console.log(err.message);
-				alert("Errore sessione: " + err.message);
+				setCurrentPage("home");
 			});
 
 		return () => {
@@ -90,18 +90,7 @@ function App() {
 		};
 	}
 
-	useEffect(() => {	//Verifica la connessione della sessione ogni volta che la pagina viene ricaricata o focussata
-		checkConnection(); // Controllo iniziale
-
-		const onFocus = () => {
-			checkConnection(); // Ricontrolla sessione quando clicco sulla tab
-		};
-
-		window.addEventListener('focus', onFocus);
-
-		return () => { window.removeEventListener('focus', onFocus); };
-	}, []);
-
+	useEffect(checkConnection, []);
 
 	return (
     <>
@@ -110,7 +99,8 @@ function App() {
       
       <section className="main">
             {currentPage === "home" && <Home />}
-            {currentPage === "gestione profilo" && <GestioneProfilo currentUser={currentUser} hostName={hostName}/>}
+            {currentPage === "gestione profilo" &&
+				<GestioneProfilo currentUser={currentUser} hostName={hostName} onUpdateUser={checkConnection}/>}
             {currentPage === "miei corsi" && <MieiCorsi />}
             {currentPage === "corsi comprati" && <CorsiComprati />}
             {currentPage === "mie lezioni" && <MieLezioni />}
