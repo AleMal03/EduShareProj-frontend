@@ -7,7 +7,7 @@ export interface User{
     age : number;
     nationality: string;
     spoken_languages : string[];
-    corsi: Corso[];
+    ruoli: string[];
 }
 
 export class UsersManagment{
@@ -18,7 +18,7 @@ export class UsersManagment{
         this.users = [];
     }
 
-    addNewUser(name: string, surname: string, username: string, email: string, age: number, nationality: string, spoken_languages: string[], corsi: Corso[]): boolean{
+    addNewUser(name: string, surname: string, username: string, email: string, age: number, nationality: string, spoken_languages: string[], ruoli: string[]): boolean{
         if(this.users.find(u => u.email === email))
             return false;
 
@@ -34,7 +34,8 @@ export class UsersManagment{
             age: age,
             nationality: nationality,
             spoken_languages: spoken_languages,
-            corsi: corsi
+            ruoli: ruoli
+
         };
 
         this.users.push(newUser);
@@ -90,16 +91,7 @@ export class UsersManagment{
 
         return null;
     }
-
-    getAllCoursesByUsername(username: string): Corso[]{
-        for(let i of this.users){
-            if(i.username == username)
-                return i.corsi;
-        }
-
-       return [];
-    }
-
+/*
     addNewCourse(username: string, nome_corso: string, nome_icona: string, difficolta: string): boolean {
         const userTarget = this.users.find(u => u.username === username);
 
@@ -109,8 +101,8 @@ export class UsersManagment{
         const nuovoCorso = new Corso(userTarget.corsi.length+1, nome_corso, nome_icona, difficolta);
         userTarget.corsi.push(nuovoCorso);
         return true;
-    }
-
+    }*/
+/*
     removeCourse(username: string, index: number): boolean{
         const userTarget = this.users.find(u => u.username === username);
 
@@ -124,7 +116,7 @@ export class UsersManagment{
                 i.setIndex(i.getIndex() - 1);
 
         return true;
-    }
+    }*/
 
 
 }
@@ -136,63 +128,28 @@ export interface Video{
 }
 
 
+
+
 export class Corso{
-    private index: number;
-    private nome: string;
-    private percorso_icona: string;
-    private difficolta: string;
-    private video: Video[];
+    public id: number;
+    public nome: string;
+    public materia: string;
+    public prezzo: number;
+    public difficolta: string;
+    public icona: string;
+    public owner: string;
+    //private video: Video[];
 
-    constructor(index: number, nome: string, nome_icona: string, difficolta: string){
-        this.index = index;
+
+    constructor(id: number, nome: string, materia: string, prezzo: number, difficolta: string, icona: string, owner: string){
+        this.id = id;
         this.nome = nome;
-        this.percorso_icona = "./public/miei_corsi/" + nome_icona;
-        this.difficolta = difficolta
-        this.video = [];
-    }
-
-    getIndex(){
-        return this.index;
-    }
-
-    setIndex(index: number){
-        this.index = index;
-    }
-
-    getNome(){
-        return this.nome;
-    }
-
-    getDifficolta(){
-        return this.difficolta;
-    }
-
-    getNumberOfVideos(){
-        return this.video.length;
-    }
-
-    getPercorsoIcona(){
-        return this.percorso_icona;
-    }
-
-    setDifficolta(difficolta: string){
+        this.materia = materia;
+        this.prezzo = prezzo;
         this.difficolta = difficolta;
-    }
+        this.icona = "./public/miei_corsi/" + icona;
+        this.owner = owner;
 
-    setNomeIcona(nome: string){
-        this.percorso_icona = this.percorso_icona + nome;
+        //this.video = [];
     }
-
-    getAllVideo(){
-        return this.video.map((x) => x);
-    }
-
-    addNewVideo(video: Video){
-        this.video.push(video);
-    }
-
-    removeVideoByIndex(index: number){
-        this.video.splice(index, 1);
-    }
-
 }

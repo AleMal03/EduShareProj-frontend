@@ -39,9 +39,9 @@ function App() {
       
       <section className="main">
             {currentPage === "home" && <Home />}
-            {currentPage === "gestione profilo" && <GestioneProfilo currentUser={currentUser}/>}
-            {currentPage === "miei corsi" && <MieiCorsi />}
-            {currentPage === "corsi comprati" && <CorsiComprati />}
+            {currentPage === "gestione profilo" && <GestioneProfilo currentUser = {currentUser}/>}
+            {currentPage === "miei corsi" && <MieiCorsi currentUser = {currentUser}/>}
+            {currentPage === "corsi comprati" && <CorsiComprati currentUser = {currentUser}/>}
             {currentPage === "mie lezioni" && <MieLezioni />}
             {currentPage === "lezioni comprate" && <LezioniComprate />}
       </section>
