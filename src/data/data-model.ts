@@ -1,155 +1,40 @@
-export interface User{
-    id?: number;
-    name? : string;
-    surname? : string;
-    username : string;
-    email: string;
-    age : number;
-    nationality: string;
-    spoken_languages : string[];
-    ruoli: string[];
+interface GenericUser{
+	nome: string;
+	cognome: string;
+	username: string;
+	email: string;
+	eta?: number;
+	nazionalita?: string;
+	lingueParlate: string[];
+	ruoli: string[];
+	credito: number;
+	fotoProfilo: string;
 }
 
-export class UsersManagment{
+// GenericUser <- {Student, Teacher}
 
-    private users : User[];
+export type Student = GenericUser	// Student è espandibile
 
-    constructor(){
-        this.users = [];
-    }
-
-    addNewUser(name: string, surname: string, username: string, email: string, age: number, nationality: string, spoken_languages: string[], ruoli: string[]): boolean{
-        if(this.users.find(u => u.email === email))
-            return false;
-
-        const newId = this.users.length + 1;
-
-        // 3. Creo il nuovo oggetto User
-        const newUser: User = {
-            id: newId,
-            name: name,          
-            surname: surname,    
-            username: username,
-            email: email,
-            age: age,
-            nationality: nationality,
-            spoken_languages: spoken_languages,
-            ruoli: ruoli
-
-        };
-
-        this.users.push(newUser);
-        return true;
-    }
-
-    getAllUsers(){
-        return this.users.map(x => x);
-    }
-
-    getUserById(id: number): User | undefined{
-        return this.users.find(u => u.id === id);
-    } 
-
-    getUsersByName(name: string): User[]{
-        const filteredUsers : User[] = [];
-
-        for(const u of this.users){
-            if(u.name === name)
-                filteredUsers.push(u);
-        }
-
-        return filteredUsers;
-    }
-
-    getUsersByNameAndSurname(name: string, surname: string): User[]{
-        const filteredUsers : User[] = [];
-
-        for(const u of this.users){
-            if(u.name === name && u.surname === surname)
-                filteredUsers.push(u);
-        }
-
-        return filteredUsers;
-    }
-
-    getUsersByNationality(nationality: string): User[]{
-        const filteredUsers : User[] = [];
-
-        for(const u of this.users){
-            if(u.nationality === nationality)
-                filteredUsers.push(u);
-        }
-
-        return filteredUsers;
-    }
-
-    getUserByUsername(username: string): User | null{
-        for(const u of this.users){
-            if(u.username === username)
-                return u;
-        }
-
-        return null;
-    }
-/*
-    addNewCourse(username: string, nome_corso: string, nome_icona: string, difficolta: string): boolean {
-        const userTarget = this.users.find(u => u.username === username);
-
-        if (!userTarget) 
-            return false;
-
-        const nuovoCorso = new Corso(userTarget.corsi.length+1, nome_corso, nome_icona, difficolta);
-        userTarget.corsi.push(nuovoCorso);
-        return true;
-    }*/
-/*
-    removeCourse(username: string, index: number): boolean{
-        const userTarget = this.users.find(u => u.username === username);
-
-        if (!userTarget) 
-            return false;
-
-        userTarget.corsi.find(() => userTarget.corsi.splice(index-1, 1));
-        
-        for(let i of userTarget.corsi)
-            if(i.getIndex() >= index)
-                i.setIndex(i.getIndex() - 1);
-
-        return true;
-    }*/
-
-
+export interface Teacher extends GenericUser{
+	aboutMe: string;
+	titoliStudio: string[];
 }
 
+export type User = Student | Teacher;
 
-export interface Video{
-    titolo: string;
-    percorso: string;
+export interface File{
+	nome: string;
+	path: string;
+	icona: string;
 }
 
-
-
-
-export class Corso{
-    public id: number;
-    public nome: string;
-    public materia: string;
-    public prezzo: number;
-    public difficolta: string;
-    public icona: string;
-    public owner: string;
-    //private video: Video[];
-
-
-    constructor(id: number, nome: string, materia: string, prezzo: number, difficolta: string, icona: string, owner: string){
-        this.id = id;
-        this.nome = nome;
-        this.materia = materia;
-        this.prezzo = prezzo;
-        this.difficolta = difficolta;
-        this.icona = "./public/miei_corsi/" + icona;
-        this.owner = owner;
-
-        //this.video = [];
-    }
+export interface Corso{
+	owner:string,
+	id: number;
+	nome: string;
+	prezzo: number;
+	materia: string;
+	difficolta: string;
+	icona: string;
+	files: File[];
 }

@@ -8,12 +8,13 @@ import type {User} from "./data/data-model.ts";
 
 interface HeaderProps{
     currentUser : User|null;
-	onLogin: (s:string) => void;
+	onLogin: (u:string, p:string) => Promise<boolean>;
 	onLogout: () => void;
     onNav: (c : ContentNavItem) => void;
+	error:[m:string, f:(s:string)=>void];
 }
 
-export default function Header({currentUser, onLogin, onLogout, onNav} : HeaderProps) : ReactElement{
+export default function Header({currentUser, onLogin, onLogout, onNav, error} : HeaderProps) : ReactElement{
 
     return (
     <header>
@@ -26,7 +27,7 @@ export default function Header({currentUser, onLogin, onLogout, onNav} : HeaderP
         </div>
 
         <div className="right-section">
-            <UserNav currentUser={currentUser} onLogout={onLogout} onLogin={onLogin} onNav={onNav}/>
+            <UserNav currentUser={currentUser} onLogout={onLogout} onLogin={onLogin} onNav={onNav} error={error}/>
         </div>
     </header>
     );

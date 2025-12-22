@@ -1,30 +1,43 @@
 import {type ReactElement, useState} from "react";
 
 interface ModificaDatiFormProps{
-    onConfirm:(s:string) => void;
+    onConfirm:(oldS:string, newS:string) => void;
 	onCancel: () => void;
     field: string;
     value_field: string;
+	errorMsg: string;
 }
 
-export function ModificaDatiForm({onConfirm, onCancel, field, value_field}: ModificaDatiFormProps): ReactElement {
-	const [dato, setDato] = useState("");
+export function ModificaDatiForm({onConfirm, onCancel, field, value_field, errorMsg}: ModificaDatiFormProps): ReactElement {
+	const [newDato, setNewDato] = useState("");
+	const [oldDato, setOldDato] = useState(value_field);
 
     return (
-    <div className = "glasspane" onClick = {(e) => {
+    <div className = "glasspane" onMouseDown={(e) => {
 		if(e.target === e.currentTarget) onCancel();
 	}}>
         <form className="create-collection-request">
             <h1>Modifica Dato: {field}</h1>
             <div>
-                <input type="text" placeholder={"Nuovo " + field} name={field.toLowerCase()} defaultValue={value_field} value={dato} onChange={(e) => {
-					setDato(e.currentTarget.value);
-				}}/>
-            </div>
+				{field.toLowerCase() === "password" ?
+					<>
+						<input type="password" placeholder="Vecchia password" name="oldPsw"
+										onChange={(e) => {setOldDato(e.currentTarget.value);}}/>
+						<input type="password" placeholder="Nuova password" name="newPsw"
+										onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
+					</>
+				:
+					<input type="text" placeholder={"Nuovo " + field} name={field.toLowerCase()}
+									onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
+				}
+			</div>
             <div className="actions">
                 <div className="form-action cancel" onClick = {() => onCancel()}>Annulla</div>
-                <div className="form-action ok" onClick={() => onConfirm(dato)}>Modifica</div>
+                <div className="form-action ok" onClick={() => onConfirm(oldDato, newDato)}>Modifica</div>
             </div>
+
+			{/* Per visualizzare il messaggio di errore*/}
+			{errorMsg != "" && <div className="errorMessage"> <p>{errorMsg}</p> </div>}
 
         </form>
     </div>

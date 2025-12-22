@@ -47,8 +47,10 @@ function SubMenu({currentUser, onNav}:SubMenuProps){
 
 		<div className="level-2" onClick={ () => {onNav("home");}}>Home</div>
 		{currentUser && (<>
-			<div className="level-2" onClick={ () => {onNav("miei corsi");}}>Miei Corsi</div>
-			<div className="level-2" onClick={ () => {onNav("mie lezioni");}}>Mie Lezioni</div>
+			{currentUser.ruoli.includes("TEACHER") &&
+				<div className="level-2" onClick={ () => {onNav("miei corsi");}}>Miei Corsi</div>}
+			{currentUser.ruoli.includes("TEACHER") &&
+				<div className="level-2" onClick={ () => {onNav("mie lezioni");}}>Mie Lezioni</div>}
 			<div className="level-2" onClick={ () => {onNav("corsi comprati");}}>Corsi Comprati</div>
 			<div className="level-2" onClick={ () => {onNav("lezioni comprate");}}>Lezioni Comprate</div>
 		</>)}

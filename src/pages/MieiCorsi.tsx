@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AggiungiCorso } from "./../components/AggiungiCorso"; 
 
-import { Corso as CorsoInterface, type User } from "./../data/data-model";
+import { type Corso as CorsoInterface, type User } from "./../data/data-model";
 import { Corso } from "./../components/Corso";
 
 interface MieiCorsiProps{
@@ -32,8 +32,8 @@ export default function MieiCorsi({currentUser}: MieiCorsiProps) {
                 if (response.ok) {
                     const data = await response.json();
                     
-                    const corsiConvertiti = data.courses.map((item: any) => {
-                        return new CorsoInterface(
+                    const corsiConvertiti: CorsoInterface[] = data.courses.map((item: any) => {
+                        return(
                             item.id,
                             item.nome,
                             item.materia,
