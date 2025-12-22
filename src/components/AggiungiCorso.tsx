@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 
 interface AggiungiCorsoProps {
     closeForm: () => void; 
-    addCourse: (nome: string, icona: string, difficolta: string) => void; 
+    addCourse: (nome: string, prezzo: number, materia: string, icona: string, difficolta: string) => void; 
 }
 
 export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): ReactElement {
@@ -12,13 +12,16 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
     const [nome, setNome] = useState("");
     const [icona, setIcona] = useState("default.png"); 
     const [difficolta, setDifficolta] = useState("Media");
+    const [prezzo, setPrezzo] = useState("0");
+    const [materia, setMateria] = useState("materia");
 
     const handleConfirm = () => {
         if (nome.trim() === "") {
             setNome("Nuovo Corso");
             return;
         }
-        addCourse(nome, icona, difficolta);
+
+        addCourse(nome, parseInt(prezzo, 10), materia, icona, difficolta.toUpperCase());
         closeForm();
     };
 
@@ -35,6 +38,26 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
                         placeholder="Es. Tecnologie Web" 
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
+                    />
+                </div>
+
+                <div>
+                    <label>Nome Materia</label>
+                    <input 
+                        type="text" 
+                        placeholder="materia" 
+                        value={materia}
+                        onChange={(e) => setMateria(e.target.value)}
+                    />
+                </div>
+
+                <div>
+                    <label>Prezzo richiesto</label>
+                    <input 
+                        type="text" 
+                        placeholder="0"
+                        value={prezzo}
+                        onChange={(e) => setPrezzo(e.target.value)}
                     />
                 </div>
 

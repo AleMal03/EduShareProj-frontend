@@ -1,19 +1,17 @@
-import { Corso as CorsoClass, type User } from "../data/data-model"
-import type { ReactElement } from "react"
+import type { Corso as CorsoInterface, User } from "../data/data-model"
+import type { EffectCallback, ReactElement } from "react"
+
+type Permessi = "POSSIEDO" | "SEGUITO" | "OPEN";
 
 interface CorsoProps {
+    permessi: Permessi;
     currentUser: User | null;
-    corso: CorsoClass;
+    corso: CorsoInterface;
     removeCourse: () => void;
     followCourse: () => void;
 }
 
-export function Corso({ currentUser, corso, removeCourse, followCourse }: CorsoProps): ReactElement {
-
-    let permessi = false;
-    if(currentUser?.username == corso.owner)
-        permessi = true;
-
+export function Corso({ permessi, currentUser, corso, removeCourse, followCourse }: CorsoProps): ReactElement {
 
     return (
         <div className="corso-card">
@@ -29,9 +27,11 @@ export function Corso({ currentUser, corso, removeCourse, followCourse }: CorsoP
             <div className="corso-footer">
                 <p>Materia: <strong>{corso.materia}</strong></p>
                 <p>Difficoltà: <strong>{corso.difficolta}</strong></p>
-                {permessi && <button className="btn-remove" onClick = {() => removeCourse()}>Rimuovi</button>}
-                {(!permessi && corso.prezzo == 0) && <button className="btn-follow" onClick = {() => followCourse()}>Segui</button>}
-                {(!permessi && corso.prezzo > 0) && <button className="btn-buy" onClick = {() => followCourse()}>Compra a {corso.prezzo}€</button>}
+                {(permessi == "POSSIEDO") && <button className="btn-remove" onClick = {() => removeCourse()}>Rimuovi</button>}
+                {(permessi == "OPEN" && corso.prezzo == 0) && <button className="btn-follow" onClick = {() => followCourse()}>Segui</button>}
+                {(permessi == "OPEN" && corso.prezzo > 0) && <button className="btn-buy" onClick = {() => followCourse()}>Compra a {corso.prezzo}€</button>}
+                {(permessi == "SEGUITO" && corso.prezzo == 0) && <p>Già seguito</p>}
+                {(permessi == "SEGUITO" && corso.prezzo > 0) && <p>Già acquistato</p>}
             </div>
         </div>
     );

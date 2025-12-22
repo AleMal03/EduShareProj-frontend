@@ -14,7 +14,7 @@ import {queryGet, queryPost} from "./data/queries.ts";
 
 export type ContentNavItem = "home" | "miei corsi" | "corsi comprati" | "mie lezioni" | "lezioni comprate" | "gestione profilo";
 
-const hostName = "http://localhost:7777";
+export const hostName = "http://localhost:7777";
 
 export interface SessionData {
 	user: User,
@@ -70,8 +70,7 @@ function App() {
 						console.log(s.user)
 						console.log(s.message)
 						setCurrentUser(s.user);
-					}
-					else {
+					} else {
 						// Nessuno user loggato
 						console.log(s.user)
 						console.log(s.message)

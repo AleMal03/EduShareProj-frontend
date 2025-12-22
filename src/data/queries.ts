@@ -13,9 +13,11 @@ export async function queryPost<T, B = unknown>(path:string, data:B):Promise<T>{
 		body: JSON.stringify(data)
 	})
 		.then(async res => {
-			if(res.ok)
-				return res.json();
-			else{
+			if(res.ok){
+				const data = res.json();
+				console.log(data);
+				return data;
+			}else{
 				// Se c'è un body JSON con il messaggio di errore (es. "Credenziali non valide"), lo leggiamo
 				const errorData = await res.json().catch(() => ({}));
 				// Lanciamo un errore che verrà catturato dal .catch() in fondo (nel componente)
