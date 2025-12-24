@@ -37,7 +37,7 @@ export function ModificaDatiForm({onConfirm, onCancel, field, value_field, error
             </div>
 
 			{/* Per visualizzare il messaggio di errore*/}
-			{errorMsg != "" && <div className="errorMessage"> <p>{errorMsg}</p> </div>}
+			{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
 
         </form>
     </div>

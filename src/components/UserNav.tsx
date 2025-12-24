@@ -119,7 +119,7 @@ function LoginForm({onCancel, onConfirm, errorMsg}: LoginFormProps): ReactElemen
 				</div>
 
 				{/* Per visualizzare il messaggio di errore*/}
-				{errorMsg != "" && <div className="errorMessage"> <p>{errorMsg}</p> </div>}
+				{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
 			</form>
 		</div>
 	);

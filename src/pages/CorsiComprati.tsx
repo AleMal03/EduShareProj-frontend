@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Corso as CorsoInterface, User } from "./../data/data-model";
 import { Corso } from "./../components/Corso";
-import { queryGet, queryPost } from "../data/queries";
+import { queryGet } from "../data/queries";
 import { hostName } from "../App";
 
 interface CorsiCompratiProps{
@@ -16,37 +16,37 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
 
 
     interface CoursesResponse {
-            courses: any[]; 
-        }
-    
-        const handleGetCorsiSeguiti = () => {
-            if (!currentUser) return;
-    
-            queryGet<CoursesResponse>(`${hostName}/corsi_seguiti?username=${currentUser.username}`)
-                .then((data) => {
-                    
-                    const corsiConvertiti: CorsoInterface[] = data.courses.map((item: any) => {
-                        return {
-                            owner: item.owner,
-                            id: item.id,
-                            nome: item.nome,
-                            prezzo: item.prezzo,
-                            materia: item.materia,
-                            difficolta: item.difficolta,
-                            icona: "/miei_corsi/" + item.icona,
-                            files: []
-                        };
-                    });
-    
-                    setCorsi(corsiConvertiti); 
-                })
-                .catch((err: Error) => {
-                    console.error(err.message);
-                });
-        };
-    
-    
-        useEffect(handleGetCorsiSeguiti, []);
+		courses: CorsoInterface[];
+	}
+
+	const handleGetCorsiSeguiti = () => {
+		if (!currentUser) return;
+
+		queryGet<CoursesResponse>(`${hostName}/corsi_seguiti?username=${currentUser.username}`)
+			.then((data) => {
+
+				const corsiConvertiti: CorsoInterface[] = data.courses.map((item: CorsoInterface) => {
+					return {
+						owner: item.owner,
+						id: item.id,
+						nome: item.nome,
+						prezzo: item.prezzo,
+						materia: item.materia,
+						difficolta: item.difficolta,
+						icona: "/miei_corsi/" + item.icona,
+						files: []
+					};
+				});
+
+				setCorsi(corsiConvertiti);
+			})
+			.catch((err: Error) => {
+				console.error(err.message);
+			});
+	};
+
+
+	useEffect(handleGetCorsiSeguiti, [currentUser]);
 
 
     return (

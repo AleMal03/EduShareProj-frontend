@@ -10,7 +10,7 @@ interface MieiCorsiProps {
 }
 
 interface CoursesResponse {
-    courses: any[];
+    courses: CorsoInterface[];
 }
 
 export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
@@ -19,7 +19,7 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 
 
     const aggiornaListaCorsi = (data: CoursesResponse) => {
-        const corsiConvertiti: CorsoInterface[] = data.courses.map((item: any) => ({
+        const corsiConvertiti: CorsoInterface[] = data.courses.map((item: CorsoInterface) => ({
             owner: item.owner,
             id: item.id,
             nome: item.nome,

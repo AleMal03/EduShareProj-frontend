@@ -1,5 +1,5 @@
 import type { Corso as CorsoInterface, User } from "../data/data-model"
-import type { EffectCallback, ReactElement } from "react"
+import type { ReactElement } from "react"
 
 type Permessi = "POSSIEDO" | "SEGUITO" | "OPEN";
 

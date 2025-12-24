@@ -26,9 +26,9 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
     };
 
     return (
-        <div className="glasspane" onClick={closeForm}>
+        <div className="glasspane" onMouseDown={closeForm}>
             
-            <form className="create-collection-request" onClick={(e) => e.stopPropagation()}>
+            <form className="create-collection-request" onMouseDown={(e) => e.stopPropagation()}>
 
                 <h1>Aggiungi Nuovo Corso</h1>
                 <div>
