@@ -97,7 +97,7 @@ function App() {
 	  		error={[errorMsg, setErrorMsg]}/>
       
       <section className="main">
-            {currentPage === "home" && <Home />}
+            {currentPage === "home" && <Home hostName={hostName} currentUser={currentUser}/>}
             {currentPage === "gestione profilo" &&
 				<GestioneProfilo currentUser={currentUser} hostName={hostName} onUpdateUser={checkConnection}/>}
             {currentPage === "miei corsi" && <MieiCorsi currentUser = {currentUser} />}
