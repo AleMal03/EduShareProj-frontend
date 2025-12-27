@@ -1,44 +1,34 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import type { Corso as CorsoInterface, User } from "./../data/data-model";
-import { Corso } from "./../components/Corso";
 import { queryGet } from "../data/queries";
 import { hostName } from "../App";
+import {CorsiTrovati, CourseFilter} from "../components/FiltroCorsi.tsx";
+import {useCorsi} from "../data/handleFiltroCorsi.ts";
 
 interface CorsiCompratiProps{
     currentUser: User | null;
 }
 
 export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
-    // Stato per la lista dei corsi
-    const [corsi, setCorsi] = useState<CorsoInterface[]>([]);
+	const {corsi, getCorsi, maxCost} = useCorsi(hostName, "/corsi/seguiti");
 
-    const handleFollowCourse = (index: number) => {};
+	//Ricerca iniziale corsi senza filtri
+	useEffect(() => {
+		getCorsi();
+	}, [getCorsi, currentUser]);
 
-
-    interface CoursesResponse {
-		courses: CorsoInterface[];
+	interface CorsiResponse{
+		listaCorsi:CorsoInterface[],
+		message:string
 	}
 
 	const handleGetCorsiSeguiti = () => {
 		if (!currentUser) return;
 
-		queryGet<CoursesResponse>(`${hostName}/corsi_seguiti?username=${currentUser.username}`)
-			.then((data) => {
-
-				const corsiConvertiti: CorsoInterface[] = data.courses.map((item: CorsoInterface) => {
-					return {
-						owner: item.owner,
-						id: item.id,
-						nome: item.nome,
-						prezzo: item.prezzo,
-						materia: item.materia,
-						difficolta: item.difficolta,
-						icona: "/miei_corsi/" + item.icona,
-						files: []
-					};
-				});
-
-				setCorsi(corsiConvertiti);
+		queryGet<CorsiResponse>(`${hostName}/corsi/seguiti`)
+			.then((r:CorsiResponse) => {
+				console.log(r.message);
+				getCorsi();
 			})
 			.catch((err: Error) => {
 				console.error(err.message);
@@ -46,24 +36,25 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
 	};
 
 
-	useEffect(handleGetCorsiSeguiti, [currentUser]);
+	useEffect(handleGetCorsiSeguiti, [currentUser, getCorsi]);
 
 
     return (
         <>
-            <div>
+            <div className="corsiComprati-header">
                 <h1>Corsi seguiti di <strong>{currentUser?.nome} {currentUser?.cognome}</strong></h1>
-            </div>
 
+				<CourseFilter hostName={hostName} onConfirm={getCorsi} maxCost={maxCost}
+							  isOwnerAsking={false} isOwned={true}/>
+			</div>
             <div className="lista-corsi">
-                {corsi.length > 0 && corsi.map((c) => (
-                    <Corso  permessi={"SEGUITO"}
+                    <CorsiTrovati
+						    permessi={"SEGUITO"}
                             currentUser={currentUser}
-                            corso={c} 
+                            corsi={corsi}
                             removeCourse={() => {return}} 
-                            followCourse={() => handleFollowCourse(c.id)}/>
-                ))}
-                
+                            followCourse={() => {}}
+							/>
                 {corsi.length === 0 && <p>Nessun corso seguito.</p>}
             </div>
 

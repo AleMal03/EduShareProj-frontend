@@ -1,19 +1,27 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import type { ReactElement } from "react";
+import {queryGet} from "../data/queries.ts";
 
 interface AggiungiCorsoProps {
-    closeForm: () => void; 
+    hostName: string;
+	closeForm: () => void;
     addCourse: (nome: string, prezzo: number, materia: string, icona: string, difficolta: string) => void; 
 }
 
-export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): ReactElement {
+export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoProps): ReactElement {
     
     // Stato locale del form
+	const [livelliDifficolta, setLivelliDifficolta] = useState<string[]>([]);
     const [nome, setNome] = useState("");
-    const [icona, setIcona] = useState("default.png"); 
-    const [difficolta, setDifficolta] = useState("Media");
+    const [icona, setIcona] = useState("default.png");
+    const [difficolta, setDifficolta] = useState("");
     const [prezzo, setPrezzo] = useState("0");
-    const [materia, setMateria] = useState("materia");
+    const [materia, setMateria] = useState("");
+
+
+	useEffect(() => {
+		queryGet<string[]>(`${hostName}/corsi/difficolta`).then(d => setLivelliDifficolta(d));
+	}, [hostName]);
 
     const handleConfirm = () => {
         if (nome.trim() === "") {
@@ -21,7 +29,7 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
             return;
         }
 
-        addCourse(nome, parseInt(prezzo, 10), materia, icona, difficolta.toUpperCase());
+        addCourse(nome, parseInt(prezzo, 10), materia, icona, difficolta);
         closeForm();
     };
 
@@ -35,7 +43,7 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
                     <label>Nome Corso</label>
                     <input 
                         type="text" 
-                        placeholder="Es. Tecnologie Web" 
+                        placeholder="Es. Tecnologie Web"
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
                     />
@@ -45,7 +53,7 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
                     <label>Nome Materia</label>
                     <input 
                         type="text" 
-                        placeholder="materia" 
+                        placeholder="Es. Informatica"
                         value={materia}
                         onChange={(e) => setMateria(e.target.value)}
                     />
@@ -55,7 +63,7 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
                     <label>Prezzo richiesto</label>
                     <input 
                         type="text" 
-                        placeholder="0"
+                        placeholder="Prezzo"
                         value={prezzo}
                         onChange={(e) => setPrezzo(e.target.value)}
                     />
@@ -73,14 +81,9 @@ export function AggiungiCorso({closeForm, addCourse}: AggiungiCorsoProps): React
 
                 <div>
                     <label>Difficoltà</label>
-                    <select 
-                        value={difficolta} 
-                        onChange={(e) => setDifficolta(e.target.value)}
-                    >
-                        <option value="Facile">Facile</option>
-                        <option value="Media">Media</option>
-                        <option value="Difficile">Difficile</option>
-                    </select>
+                    <select value={difficolta} onChange={(e) => setDifficolta(e.target.value)}>
+						{livelliDifficolta.map((livello, i) => <option key={i} value={livello + ""}>{livello}</option>)}
+					</select>
                 </div>
 
                 <div >

@@ -89,7 +89,7 @@ function App() {
 		};
 	}
 
-	useEffect(checkConnection, []);
+	useEffect(checkConnection, [currentPage]);
 
 	return (
     <>
@@ -100,7 +100,7 @@ function App() {
             {currentPage === "home" && <Home hostName={hostName} currentUser={currentUser}/>}
             {currentPage === "gestione profilo" &&
 				<GestioneProfilo currentUser={currentUser} hostName={hostName} onUpdateUser={checkConnection}/>}
-            {currentPage === "miei corsi" && <MieiCorsi currentUser = {currentUser} />}
+            {currentPage === "miei corsi" && <MieiCorsi hostName={hostName} currentUser = {currentUser} />}
             {currentPage === "corsi comprati" && <CorsiComprati currentUser = {currentUser} />}
             {currentPage === "mie lezioni" && <MieLezioni />}
             {currentPage === "lezioni comprate" && <LezioniComprate />}

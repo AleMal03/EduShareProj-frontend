@@ -1,18 +1,17 @@
 import type { Corso as CorsoInterface, User } from "../data/data-model"
 import type { ReactElement } from "react"
 
-type Permessi = "POSSIEDO" | "SEGUITO" | "OPEN";
+export type Permessi = "POSSIEDO" | "SEGUITO" | "OPEN";
 
 interface CorsoProps {
     permessi: Permessi;
     currentUser: User | null;
     corso: CorsoInterface;
-    removeCourse: () => void;
-    followCourse: () => void;
+    removeCourse: (id:number) => void;
+    followCourse: (id:number) => void;
 }
 
 export function Corso({ permessi, currentUser, corso, removeCourse, followCourse }: CorsoProps): ReactElement {
-
     return (
         <div className="corso-card">
             <div className="corso-header">
@@ -27,11 +26,10 @@ export function Corso({ permessi, currentUser, corso, removeCourse, followCourse
             <div className="corso-footer">
                 <p>Materia: <strong>{corso.materia}</strong></p>
                 <p>Difficoltà: <strong>{corso.difficolta}</strong></p>
-                {(permessi == "POSSIEDO") && <button className="btn-remove" onClick = {() => removeCourse()}>Rimuovi</button>}
-                {(permessi == "OPEN" && corso.prezzo == 0) && <button className="btn-follow" onClick = {() => followCourse()}>Segui</button>}
-                {(permessi == "OPEN" && corso.prezzo > 0) && <button className="btn-buy" onClick = {() => followCourse()}>Compra a {corso.prezzo}€</button>}
-                {(permessi == "SEGUITO" && corso.prezzo == 0) && <p>Già seguito</p>}
-                {(permessi == "SEGUITO" && corso.prezzo > 0) && <p>Già acquistato</p>}
+                {(currentUser?.username === corso.owner && permessi === "POSSIEDO") && <button className="btn-remove" onClick = {() => removeCourse(corso.id)}>Rimuovi</button>}
+                {(permessi === "OPEN" && corso.prezzo == 0) && <button className="btn-follow" onClick = {() => followCourse(corso.id)}>Segui</button>}
+                {(permessi === "OPEN" && corso.prezzo > 0) && <button className="btn-buy" onClick = {() => followCourse(corso.id)}>Compra a {corso.prezzo}€</button>}
+                {(permessi === "SEGUITO") && <p>Seguito</p>}
             </div>
         </div>
     );
