@@ -48,7 +48,11 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
                 // Ricarichiamo la lista dei corsi dopo la rimozione
                 getCorsi(); 
             })
-            .catch((err) => console.error(err.message));
+            .catch((err) => {
+				if(!currentUser)
+					alert("Devi essere loggato per poter seguire un corso");
+				console.error(err.message)
+			});
     }
 
 
@@ -63,6 +67,7 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
 			</div>
             <div className="lista-corsi">
                     <CorsiTrovati
+							hostName={hostName}
 						    permessi={"SEGUITO"}
                             currentUser={currentUser}
                             corsi={corsi}

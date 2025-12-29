@@ -43,6 +43,7 @@ export function useCorsi(hostName:string, path:string) {
         appendIfValid("teacher", filters.teacher);
         appendIfValid("materia", filters.materia);
         appendIfValid("difficolta", filters.difficolta);
+		appendIfValid("rating", filters.rating);
         
         // Il prezzo c'è sempre
         params.append("prezzo", currentPrice.toString()); 

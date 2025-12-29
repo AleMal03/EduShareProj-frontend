@@ -33,7 +33,11 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 				console.log(r.message);
 				getCorsi();
 			})
-            .catch((err) => console.error(err.message));
+            .catch((err:Error) => {
+				if(!currentUser)
+					alert("Devi essere loggato per poter seguire un corso");
+				console.error(err.message)
+			});
     };
 
     // --- AGGIUNGI CORSO ---
@@ -71,6 +75,7 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 			</div>
             <div className="lista-corsi">
 				<CorsiTrovati
+					hostName={hostName}
 					permessi={"POSSIEDO"}
 					currentUser={currentUser}
 					corsi={corsi}

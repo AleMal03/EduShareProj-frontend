@@ -16,7 +16,7 @@ export function ModificaDatiForm({onConfirm, onCancel, field, value_field, error
     <div className = "glasspane" onMouseDown={(e) => {
 		if(e.target === e.currentTarget) onCancel();
 	}}>
-        <form className="create-collection-request">
+        <form className="modify-data-request">
             <h1>Modifica Dato: {field}</h1>
             <div>
 				{field.toLowerCase() === "password" ?

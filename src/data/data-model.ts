@@ -23,6 +23,7 @@ export interface Teacher extends GenericUser{
 export type User = Student | Teacher;
 
 export interface File{
+	id:number;
 	nome: string;
 	path: string;
 	icona: string;

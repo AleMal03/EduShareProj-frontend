@@ -25,13 +25,17 @@ export default function Home({currentUser, hostName}: HomeProps): ReactElement {
 	}
 
 	// --- ISCRIVITI CORSO ---
-	const handlefollowCourse= (id: number) => {
+	const handleFollowCourse= (id: number) => {
 		queryPost<CorsiResponse>(`${hostName}/corsi/iscrizione`, { id })
 				.then((r:CorsiResponse) => {
 					console.log(r.message);
 					getCorsi();
 				})
-				.catch((err) => console.error(err.message));
+				.catch((err:Error) => {
+					if(!currentUser)
+						alert("Devi essere loggato per poter seguire un corso");
+					console.error(err.message)
+				});
 	}
 
 	return (
@@ -41,7 +45,7 @@ export default function Home({currentUser, hostName}: HomeProps): ReactElement {
 							  isOwnerAsking={false} isOwned={false}/>
 			</div>
 			<div className="home-body">
-				<CorsiTrovati corsi={corsi} currentUser={currentUser} permessi={"OPEN"} removeCourse={()=>{}} followCourse={handlefollowCourse} unfollowCourse={()=>{}}/>
+				<CorsiTrovati hostName={hostName} corsi={corsi} currentUser={currentUser} permessi={"OPEN"} removeCourse={()=>{}} followCourse={handleFollowCourse} unfollowCourse={()=>{}}/>
 			</div>
 		</div>
 	);

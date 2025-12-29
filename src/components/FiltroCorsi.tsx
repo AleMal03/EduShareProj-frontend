@@ -4,6 +4,7 @@ import {type ReactElement, useEffect, useState} from "react";
 import type {User} from "../data/data-model.ts";
 import type {Corso as CorsoInterface} from "../data/data-model.ts"
 import {queryGet} from "../data/queries.ts";
+import ContentCorso from "../pages/ContentCorso.tsx";
 
 
 interface CourseFilterProps {
@@ -32,7 +33,6 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 		queryGet<string[]>(`${hostName}/corsi/materie`).then(s => setMaterie(s));
 		queryGet<string[]>(`${hostName}/corsi/difficolta`).then(d => setLivelliDifficolta(d));
 	}, [hostName]);
-
 
 	return <form className="filter">
 		<div className="filter-title">
@@ -75,13 +75,14 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 		{!isOwnerAsking && !isOwned &&
             <div className="filter-item">
                 <label htmlFor="courseRating">Voto medio minimo: {rating}</label>
-                <input id="courseRating" type="range" min="1" max="5" step="1" 
+                <input id="courseRating" type="range" min="1" max="5" step="1"
                        value={rating}
                        onChange={e => setRating(e.currentTarget.valueAsNumber)} />
+
             </div>
         }
 		<div className="actions">
-            <div className="form-action ok" 
+            <div className="form-action ok"
                  onClick={() => onConfirm({ nomeCorso, teacher, materia, difficolta, prezzo, rating })}>
                  Cerca
             </div>
@@ -91,6 +92,7 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 }
 
 interface CorsiTrovatiProps {
+	hostName:string,
 	corsi: CorsoInterface[],
 	currentUser: User|null,
 	permessi: Permessi,
@@ -100,11 +102,23 @@ interface CorsiTrovatiProps {
 }
 
 
-export function CorsiTrovati({corsi, currentUser, permessi, removeCourse, followCourse, unfollowCourse}: CorsiTrovatiProps): ReactElement {
+export function CorsiTrovati({hostName, corsi, currentUser, permessi, removeCourse, followCourse, unfollowCourse}: CorsiTrovatiProps): ReactElement {
+	const [activeCourse, setActiveCourse] = useState<CorsoInterface|undefined>(undefined);
+
+	function handleChangeActiveCourse(corso:CorsoInterface){
+		setActiveCourse(corso);
+	}
+
+	function handleDeactivateCourse(){
+		setActiveCourse(undefined);
+	}
+
 	return <>
 		{corsi?.map((corso) =>
 			<Corso key={corso.id} permessi={permessi} currentUser={currentUser} corso={corso}
-				   removeCourse={removeCourse} followCourse={followCourse} unfollowCourse={unfollowCourse}/>
+				   removeCourse={removeCourse} followCourse={followCourse} unfollowCourse={unfollowCourse} onChangeActiveCourse={handleChangeActiveCourse}/>
 		)}
+
+		{activeCourse !== undefined && <ContentCorso hostName={hostName} corso={activeCourse} onDeactivateCourse={handleDeactivateCourse}/>}
 	</>
 }
