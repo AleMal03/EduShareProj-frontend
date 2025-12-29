@@ -73,7 +73,7 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 				<CourseFilter hostName={hostName} onConfirm={getCorsi} maxCost={maxCost}
 							  isOwnerAsking={true} isOwned={false}/>
 			</div>
-            <div className="lista-corsi">
+            <div className="mieicorsi-body">
 				<CorsiTrovati
 					hostName={hostName}
 					permessi={"POSSIEDO"}

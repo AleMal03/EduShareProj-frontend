@@ -65,7 +65,7 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
 				<CourseFilter hostName={hostName} onConfirm={getCorsi} maxCost={maxCost}
 							  isOwnerAsking={false} isOwned={true}/>
 			</div>
-            <div className="lista-corsi">
+            <div className="corsiComprati-body">
                     <CorsiTrovati
 							hostName={hostName}
 						    permessi={"SEGUITO"}

@@ -1,5 +1,6 @@
 import type { Corso as CorsoInterface, User } from "../data/data-model"
 import type { ReactElement } from "react"
+import "../style/Corso.css"
 
 export type Permessi = "POSSIEDO" | "SEGUITO" | "OPEN";
 

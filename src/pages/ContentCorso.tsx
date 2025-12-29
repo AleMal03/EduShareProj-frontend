@@ -2,6 +2,7 @@ import {type ReactElement, useEffect, useState} from "react";
 import type {Corso as CorsoInterface} from "../data/data-model.ts"
 import type {File} from "../data/data-model.ts"
 import {queryGet} from "../data/queries.ts";
+import "../style/ContentCorso.css"
 
 interface ContentCorsoProps{
 	hostName:string,

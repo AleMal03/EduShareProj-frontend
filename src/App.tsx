@@ -1,4 +1,4 @@
-import './App.css'
+import './style/App.css'
 import {useEffect, useState} from "react"
 
 import Header from "./Header"
@@ -7,12 +7,10 @@ import Home from "./pages/Home"
 import GestioneProfilo from "./pages/GestioneProfilo.tsx"
 import MieiCorsi from "./pages/MieiCorsi.tsx"
 import CorsiComprati from "./pages/CorsiComprati.tsx"
-import MieLezioni from "./pages/MieLezioni.tsx"
-import LezioniComprate from "./pages/LezioniComprate.tsx"
 import type {User} from "./data/data-model.ts";
 import {queryGet, queryPost} from "./data/queries.ts";
 
-export type ContentNavItem = "home" | "miei corsi" | "corsi comprati" | "mie lezioni" | "lezioni comprate" | "gestione profilo";
+export type ContentNavItem = "home" | "miei corsi" | "corsi comprati" | "gestione profilo";
 
 export const hostName = "http://localhost:7777";
 
@@ -102,8 +100,6 @@ function App() {
 				<GestioneProfilo currentUser={currentUser} hostName={hostName} onUpdateUser={checkConnection}/>}
             {currentPage === "miei corsi" && <MieiCorsi hostName={hostName} currentUser = {currentUser} />}
             {currentPage === "corsi comprati" && <CorsiComprati currentUser = {currentUser} />}
-            {currentPage === "mie lezioni" && <MieLezioni />}
-            {currentPage === "lezioni comprate" && <LezioniComprate />}
       </section>
 
       <Footer />

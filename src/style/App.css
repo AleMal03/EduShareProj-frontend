@@ -1,0 +1,257 @@
+/* ============================================================ */
+/* INIZIO HEADER 											 	*/
+/* ============================================================ */
+
+header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: white;
+    grid-template-columns: auto auto;
+}
+
+header .left-section {
+    float: left;
+    display: flex;
+    column-gap: 30px;
+}
+
+header .right-section {
+    float: right;
+
+}
+
+.logo {
+    margin-left: 70px;
+    cursor: pointer; 
+}
+
+.logo img {
+    max-width: 65px;
+    border-radius: 100%;
+}
+
+/* ---- STILI CONDIVISI PER I MENU NAV E I SOTTO MENU ---- */
+nav.content-nav,
+nav.user-nav{
+	position: relative;
+	width: fit-content;
+}
+
+nav .submenu-container {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+}
+
+nav div.level-1,
+nav div.level-2 {
+	background-color: transparent;
+	padding: 10px 35px;
+	color: #2C3E50;
+	border-radius: 15px;
+	border: 2px solid #2C3E50;
+	cursor: pointer;
+	text-align: center;
+}
+
+nav div.submenu-container{
+	position: absolute;
+	z-index: 100; /* Per evitare che finiscano sotto altro */
+}
+
+/* ---- DIFFERENZE SPECIFICHE  ---- */
+
+/* Solo User Nav (Navigazione Utente a destra) */
+nav.user-nav{
+	margin-right: 70px;
+}
+
+nav.user-nav div.level-1,
+nav.user-nav div.level-2 {
+	min-width: 80px;
+	justify-content: center;
+}
+
+/* Solo Content Nav (Navigazione Contenuti a sinistra) */
+nav.content-nav{
+	margin-left: 20px;
+	height: fit-content;
+}
+
+nav.content-nav div.level-1{
+	margin-top: 15px;
+}
+
+/* ---- STILI PER LIVELLI (1 vs 2) ----*/
+
+/* Livello 1 (menu principale) */
+nav div.level-1 {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 25px;
+	transition: background-color 0.2s ease; /* Aggiunge fluidità */
+}
+
+nav div.level-1:hover{
+	border: 2px solid #00838F;
+	background-color: rgba(205, 232, 232, 0.3);
+	color: #00838f;
+}
+
+/* --- Livello 2 (sotto menu) --- */
+nav div.level-2{
+	margin-top: 5px; /* Sovrascrive il margin top specifico se necessario */
+	font-size: 0.9rem;
+	padding: 6px 12px;
+	border-radius: 10px;
+	background-color: rgba(120, 133, 133, 0.8);	/* TODO: trovare un background migliore per la visibilità */
+	border: none;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+nav div.level-2:hover {
+	background-color: rgba(205, 232, 232, 0.85);
+	color: #00838f;
+}
+
+/* --- FRECCIA E ANIMAZIONI --- */
+
+nav.content-nav .dropdown img {
+	width: 12px;
+	opacity: 0.7;
+	transition: transform 0.3s ease; /* Aggiunge animazione fluida alla rotazione */
+}
+
+/* Quando lo span ha la classe expanded (gestita da React), ruota l'immagine */
+nav.content-nav .dropdown.expanded > img {
+  transform: rotate(180deg);
+}
+
+/* ============================================================ */
+/* INIZIO MAIN (CENTRAL AREA)									*/
+/* ============================================================ */
+.main {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    background-color: rgb(225, 239, 239, 0.55);
+    justify-content: stretch;
+    align-items: stretch;
+    overflow: scroll;
+	scrollbar-width: none;
+}
+
+/* ============================================================ */
+/* INIZIO FOOTER 											 	*/
+/* ============================================================ */
+footer {
+	padding: 10px;
+	font-size: 0.7rem;
+	font-style: italic;
+	display: grid;
+	grid-template-columns: 440px auto 310px;
+	grid-template-rows: auto;
+	grid-template-areas: "copy . license" "copy . credits";
+	align-items: center;
+	grid-row-start: 3;
+	grid-row-end: 4;
+	background-color: #37474f;
+	color: white;
+}
+
+footer .copy {
+  grid-area: copy;
+}
+
+footer .license {
+  	grid-area: license;
+	text-align: right;
+}
+
+footer .credits {
+  grid-area: credits;
+	text-align: right;
+
+}
+
+footer .highlight {
+	font-weight: bold;
+	background-color: #3f6d80;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a{
+	color: #d6d6d6;
+}
+
+footer a:hover{
+	color: white;
+}
+
+footer .license img.cclicense {
+  height: 30px;
+  margin-left: 10px;
+}
+
+.credits {
+  font-size: 0.6rem;
+}
+
+/* ============================================================ */
+/* COMPONENTI COMUNI A TUTTE LE PAGINE						 	*/
+/* ============================================================ */
+
+/*---- GLASSPANE ----*/
+.glasspane {
+	width: 100vw;
+	height: 100vh;
+	z-index: 10;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(186, 189, 169, 0.5);
+}
+
+/* ---- LINKS ---- */
+a {
+	text-decoration: none;
+	color: #d2005a;
+}
+
+a:hover{
+	text-decoration-line: underline;
+	color: #a80048;
+	cursor: pointer;
+}
+
+/*---- BUTTONS ----*/
+.form-action, button{
+	background-color: rgb(255, 241, 118, 0.6);
+	padding: 5px 10px;
+	font-weight: bold;
+	color: #2C3E50;
+	border-radius: 10px;
+	border: 2px solid rgb(252, 215, 53, 0.6);
+	margin-top: 10px;
+	font-family: "Nunito", sans-serif;
+	font-size: 0.9rem;
+}
+
+.form-action:hover, button:hover{
+	background-color: rgb(255, 241, 118, 0.9);
+	border: 2px solid rgb(252, 215, 53, 0.9);
+	cursor: pointer;
+}

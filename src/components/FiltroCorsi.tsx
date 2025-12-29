@@ -113,12 +113,12 @@ export function CorsiTrovati({hostName, corsi, currentUser, permessi, removeCour
 		setActiveCourse(undefined);
 	}
 
-	return <>
+	return <div className="lista-corsi">
 		{corsi?.map((corso) =>
 			<Corso key={corso.id} permessi={permessi} currentUser={currentUser} corso={corso}
 				   removeCourse={removeCourse} followCourse={followCourse} unfollowCourse={unfollowCourse} onChangeActiveCourse={handleChangeActiveCourse}/>
 		)}
 
 		{activeCourse !== undefined && <ContentCorso hostName={hostName} corso={activeCourse} onDeactivateCourse={handleDeactivateCourse}/>}
-	</>
+	</div>
 }

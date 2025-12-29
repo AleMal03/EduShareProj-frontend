@@ -1,0 +1,81 @@
+/* ============================================================ */
+/* INIZIO MODIFICA DATI FORM									*/
+/* ============================================================ */
+.glasspane {
+	min-width: 100vw;
+	width: 100vh;
+	height: 100vh;
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(186, 189, 169, 0.5);
+}
+
+
+form h1 {
+	margin: 5px 0;
+	font-size: 1.6rem;
+	text-align: center;
+	color: rgb(210, 0, 90);
+}
+
+form label {
+	font-size: 0.9rem;
+	font-weight: bold;
+}
+
+form input[type="text"] {
+	font-family: "Nunito", sans-serif;
+	font-size: 0.9rem;
+}
+
+.form-action, button, input[type="button"] {
+	background-color: #fdffb9;
+	padding: 5px 10px;
+	font-weight: bold;
+	color: #434343;
+	border-radius: 10px;
+	border: 2px solid #cdcf93;
+	margin-top: 10px;
+	font-family: "Nunito", sans-serif;
+	font-size: 0.9rem;
+}
+
+.form-action:hover, button:hover, input[type="button"]:hover {
+	background-color: #f4ff62;
+}
+
+form.create-collection-request {
+	border: 3px solid rgb(104, 185, 185);
+	background-color: #cde8e8;
+	padding: 20px 30px 10px 30px;
+	margin: 10px;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+
+}
+
+.create-collection-request input[type="text"] {
+	margin-top: 5px;
+	padding: 10px;
+	border-radius: 5px;
+	min-width: 300px;
+
+	display: flex;
+	justify-content: space-between; /* Separa testo a sx e freccia a dx */
+	align-items: center; /* Allinea verticalmente al centro */
+}
+
+.create-collection-request .actions {
+	display: flex;
+	flex-direction: row;
+	margin: 10px 0;
+	justify-content: center;
+	column-gap: 10px;
+}

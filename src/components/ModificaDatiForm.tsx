@@ -1,4 +1,5 @@
 import {type ReactElement, useState} from "react";
+import "../style/ModificaDatiForm.css"
 
 interface ModificaDatiFormProps{
     onConfirm:(oldS:string, newS:string) => void;
