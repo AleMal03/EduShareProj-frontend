@@ -14,9 +14,9 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
 	const [livelliDifficolta, setLivelliDifficolta] = useState<string[]>([]);
     const [nome, setNome] = useState("");
     const [icona, setIcona] = useState("default.png");
-    const [difficolta, setDifficolta] = useState("");
+    const [difficolta, setDifficolta] = useState("FACILE");
     const [prezzo, setPrezzo] = useState("0");
-    const [materia, setMateria] = useState("");
+    const [materia, setMateria] = useState("Non specificata");
 
 
 	useEffect(() => {

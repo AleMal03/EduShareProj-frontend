@@ -33,6 +33,7 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 		queryGet<string[]>(`${hostName}/corsi/difficolta`).then(d => setLivelliDifficolta(d));
 	}, [hostName]);
 
+
 	return <form className="filter">
 		<div className="filter-title">
 			Filtra:
@@ -72,17 +73,19 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 			</div>
 		}
 		{!isOwnerAsking && !isOwned &&
-			<div className="filter-item">
-				<label htmlFor="courseRating">Voto minimo</label>
-				<input id="courseRating" type="range" min="1" max="5" step="1" defaultValue="5"
-					   onChange={e => setRating(e.currentTarget.valueAsNumber)}/>
-				<label htmlFor="coursePrezzo">{rating}</label>
-			</div>
-		}
+            <div className="filter-item">
+                <label htmlFor="courseRating">Voto medio minimo: {rating}</label>
+                <input id="courseRating" type="range" min="1" max="5" step="1" 
+                       value={rating}
+                       onChange={e => setRating(e.currentTarget.valueAsNumber)} />
+            </div>
+        }
 		<div className="actions">
-			<div className="form-action ok" onClick={() => onConfirm({nomeCorso, teacher, materia, difficolta, prezzo})}>Cerca
-			</div>
-		</div>
+            <div className="form-action ok" 
+                 onClick={() => onConfirm({ nomeCorso, teacher, materia, difficolta, prezzo, rating })}>
+                 Cerca
+            </div>
+        </div>
 
 	</form>
 }
@@ -91,16 +94,17 @@ interface CorsiTrovatiProps {
 	corsi: CorsoInterface[],
 	currentUser: User|null,
 	permessi: Permessi,
-	removeCourse: () => void,
-	followCourse: () => void,
+	removeCourse: (id:number) => void;
+    followCourse: (id:number) => void;
+    unfollowCourse: (id:number) => void;
 }
 
 
-export function CorsiTrovati({corsi, currentUser, permessi, removeCourse, followCourse}: CorsiTrovatiProps): ReactElement {
+export function CorsiTrovati({corsi, currentUser, permessi, removeCourse, followCourse, unfollowCourse}: CorsiTrovatiProps): ReactElement {
 	return <>
 		{corsi?.map((corso) =>
 			<Corso key={corso.id} permessi={permessi} currentUser={currentUser} corso={corso}
-				   removeCourse={removeCourse} followCourse={followCourse}/>
+				   removeCourse={removeCourse} followCourse={followCourse} unfollowCourse={unfollowCourse}/>
 		)}
 	</>
 }

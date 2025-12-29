@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { Corso as CorsoInterface, User } from "./../data/data-model";
-import { queryGet } from "../data/queries";
+import { queryGet, queryPost } from "../data/queries";
 import { hostName } from "../App";
 import {CorsiTrovati, CourseFilter} from "../components/FiltroCorsi.tsx";
 import {useCorsi} from "../data/handleFiltroCorsi.ts";
@@ -39,6 +39,20 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
 	useEffect(handleGetCorsiSeguiti, [currentUser, getCorsi]);
 
 
+	// --- DISISCRIVITI CORSO ---
+    const handleUnfollowCourse = (id: number) => {
+
+		queryPost<CorsiResponse>(`${hostName}/corsi/seguiti/disiscrizione`, { id }) 
+            .then((r: CorsiResponse) => {
+                console.log(r.message);
+                // Ricarichiamo la lista dei corsi dopo la rimozione
+                getCorsi(); 
+            })
+            .catch((err) => console.error(err.message));
+    }
+
+
+
     return (
         <>
             <div className="corsiComprati-header">
@@ -54,6 +68,7 @@ export default function CorsiComprati({currentUser}: CorsiCompratiProps) {
                             corsi={corsi}
                             removeCourse={() => {return}} 
                             followCourse={() => {}}
+							unfollowCourse={handleUnfollowCourse}
 							/>
                 {corsi.length === 0 && <p>Nessun corso seguito.</p>}
             </div>

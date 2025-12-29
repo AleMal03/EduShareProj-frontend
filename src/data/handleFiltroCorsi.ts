@@ -7,7 +7,8 @@ export interface Filtri {
 	teacher?: string,
 	materia?: string,
 	difficolta?: string,
-	prezzo?: number
+	prezzo?: number,
+	rating?: number
 }
 
 interface CorsiResponse{
@@ -27,32 +28,40 @@ export function useCorsi(hostName:string, path:string) {
 	}, [hostName]);
 
 	const getCorsi = useCallback((filters: Filtri = {}) => {
-		const params = new URLSearchParams();	// Gestore parametri GET
-		if (filters.prezzo == null)
-			filters.prezzo = maxCost;
+        const params = new URLSearchParams();   // Gestore parametri GET
+        
+        const currentPrice = filters.prezzo ?? maxCost;
 
-		// Aggiungi solo se il valore esiste ed è diverso da stringa vuota
-		if (filters.nomeCorso) params.append("nomeCorso", filters.nomeCorso);
-		if (filters.teacher) params.append("teacher", filters.teacher);
-		if (filters.materia) params.append("materia", filters.materia);
-		if (filters.difficolta) params.append("difficolta", filters.difficolta);
-		params.append("prezzo", filters.prezzo + "");	// Il prezzo lo passiamo a prescindere
+        // per aggiungere parametri solo se validi
+        const appendIfValid = (key: string, value?: string | number) => {
+            if (value === undefined || value === null) return;
+            if (typeof value === 'string' && value.trim() === "") return;
+            params.append(key, value.toString());
+        };
 
-		console.log(params.toString());
+        appendIfValid("nomeCorso", filters.nomeCorso);
+        appendIfValid("teacher", filters.teacher);
+        appendIfValid("materia", filters.materia);
+        appendIfValid("difficolta", filters.difficolta);
+        
+        // Il prezzo c'è sempre
+        params.append("prezzo", currentPrice.toString()); 
 
-		queryGet<CorsiResponse>(`${hostName}${path}?${params.toString()}`)
-			.then((r: CorsiResponse) => {
-				console.log(r.message);
-				setCorsi(r.listaCorsi);
-			})
-			.catch((err: Error) => {
-				console.error(err.message);
-			})
-	}, [maxCost, hostName, path]);
+        console.log("Query Params:", params.toString());
+
+        queryGet<CorsiResponse>(`${hostName}${path}?${params.toString()}`)
+            .then((r: CorsiResponse) => {
+                setCorsi(r.listaCorsi);
+            })
+            .catch((err: Error) => {
+                console.error("Errore fetch corsi:", err.message);
+            })
+    }, [maxCost, hostName, path]);
 
 	return {
-		corsi,
-		getCorsi,
-		maxCost
-	};
+        corsi,
+        getCorsi,
+        maxCost
+    }
+
 }

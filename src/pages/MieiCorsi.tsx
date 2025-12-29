@@ -12,7 +12,6 @@ interface MieiCorsiProps {
 }
 
 
-
 export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
     const {corsi, getCorsi, maxCost} = useCorsi(hostName, "/corsi/miei");
     const [showAddCourseForm, setShowAddCourseForm] = useState(false);
@@ -48,6 +47,7 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
             materia: materia,
             difficolta: difficolta,
             icona: icona,
+            mediaRecensioni: 0,
             files: []
         });
 
@@ -74,8 +74,9 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 					permessi={"POSSIEDO"}
 					currentUser={currentUser}
 					corsi={corsi}
-					removeCourse={() => handleRemoveCourse}
+					removeCourse={handleRemoveCourse}
 					followCourse={() => { return }}
+                    unfollowCourse={() => { return }}
 				/>
                 {corsi.length === 0 && <p>Nessun corso trovato.</p>}
             </div>

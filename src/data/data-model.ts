@@ -36,5 +36,6 @@ export interface Corso{
 	materia: string;
 	difficolta: string;
 	icona: string;
+	mediaRecensioni: number;
 	files: File[];
 }
