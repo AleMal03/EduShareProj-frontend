@@ -134,7 +134,7 @@ export default function GestioneProfilo({currentUser, hostName, onUpdateUser}:Ge
 													   onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormLParlate, "lingueParlate", oldDato.split(" "), newDato.split(" "))} field="Lingue Parlate" value_field={currentUser?.lingueParlate?.join(" ") + ""}  errorMsg={errorMsg}/>}
 
 			{isActiveFormTitoli&& <ModificaDatiForm onCancel={() => {setIsActiveFormTitoli(false); setErrorMsg("");}}
-													onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormTitoli, "titoliStudio", oldDato.split(" "), newDato.split(" "))} field="Eta" value_field={(currentUser as Teacher)?.titoliStudio + ""}  errorMsg={errorMsg}/>}
+													onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormTitoli, "titoliStudio", oldDato.split(" "), newDato.split(" "))} field="Titoli di Studio" value_field={(currentUser as Teacher)?.titoliStudio + ""}  errorMsg={errorMsg}/>}
                                                     
 			{isActiveFormPassword && <ModificaDatiForm onCancel={() => {setIsActiveFormPassword(false); setErrorMsg("");}}
 													   onConfirm={(oldDato, newDato) => handleModificaPassword(setIsActiveFormPassword, oldDato, newDato)} field="Password" value_field={""}  errorMsg={errorMsg}/>}

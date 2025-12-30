@@ -20,15 +20,20 @@ export function ModificaDatiForm({onConfirm, onCancel, field, value_field, error
         <form className="modify-data-request">
             <h1>Modifica Dato: {field}</h1>
             <div>
-				{field.toLowerCase() === "password" ?
+				{field.toLowerCase() === "password" &&
 					<>
 						<input type="password" placeholder="Vecchia password" name="oldPsw"
 										onChange={(e) => {setOldDato(e.currentTarget.value);}}/>
 						<input type="password" placeholder="Nuova password" name="newPsw"
 										onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
 					</>
-				:
-					<input type="text" placeholder={"Nuovo " + field} name={field.toLowerCase()}
+				}
+				{field.toLowerCase() === "descrizione" &&
+					<textarea defaultValue={value_field} name={field.toLowerCase()} placeholder="Descrizione..."
+							  onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
+				}
+				{field.toLowerCase() !== "password" && field.toLowerCase() !== "descrizione" &&
+					<input type="text" placeholder={"Inserire " + field} name={field.toLowerCase()}
 									onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
 				}
 			</div>
