@@ -24,13 +24,17 @@ header .right-section {
 
 }
 
+header div{
+	align-items: center;
+}
+
 .logo {
     margin-left: 70px;
     cursor: pointer; 
 }
 
 .logo img {
-    max-width: 65px;
+	max-height: 60px;
     border-radius: 100%;
 }
 
@@ -82,10 +86,6 @@ nav.user-nav div.level-2 {
 nav.content-nav{
 	margin-left: 20px;
 	height: fit-content;
-}
-
-nav.content-nav div.level-1{
-	margin-top: 15px;
 }
 
 /* ---- STILI PER LIVELLI (1 vs 2) ----*/

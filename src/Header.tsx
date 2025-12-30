@@ -20,7 +20,7 @@ export default function Header({currentUser, onLogin, onLogout, onNav, error} : 
     <header>
         <div className="left-section">
             <div className="logo" onClick = {() => onNav("home")}>
-                <img src="/images/logo.jpeg" alt="logo"/>
+                <img src="/images/logo.png" alt="logo"/>
             </div>
             
             <ContentNav currentUser={currentUser} onNav={onNav}/>
