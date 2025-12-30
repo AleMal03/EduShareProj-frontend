@@ -14,8 +14,14 @@ export default function Footer(): ReactElement {
                                                                                   className="cclicense"
                                                                                   src="/images/by-nc-sa.png"/></a>
         </p>
-        <p className="credits"><a href="https://www.flaticon.com/free-icons/down-arrow"
-                                  title="down arrow icons">Down arrow icons created by Roundicons - Flaticon</a></p>
+        <p className="credits">
+			<a href="https://www.flaticon.com/free-icons/down-arrow" title="down arrow icons">
+				Down arrow icons created by Roundicons - Flaticon
+			</a>
+			<br/>
+			<a href="https://freeicon.com/it" title="other icons"> Other icons from Freeicon.it </a>
+
+		</p>
     </footer>
     );
 }

@@ -156,7 +156,7 @@ footer {
 	font-size: 0.7rem;
 	font-style: italic;
 	display: grid;
-	grid-template-columns: 440px auto 310px;
+	grid-template-columns: 440px auto 360px;
 	grid-template-rows: auto;
 	grid-template-areas: "copy . license" "copy . credits";
 	align-items: center;
@@ -172,7 +172,10 @@ footer .copy {
 
 footer .license {
   	grid-area: license;
-	text-align: right;
+	display: flex;
+	align-items: center;        /* Centra verticalmente testo e immagine */
+	justify-content: flex-end;  /* Spinge tutto a destra (sostituisce text-align: right) */
+	gap: 5px;
 }
 
 footer .credits {
@@ -199,7 +202,7 @@ footer a:hover{
 }
 
 footer .license img.cclicense {
-  height: 30px;
+  height: 20px;
   margin-left: 10px;
 }
 
