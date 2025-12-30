@@ -34,13 +34,13 @@ export default function ContentCorso({hostName, corso, onDeactivateCourse}:Conte
 					<div className="backBtn" onClick={() => onDeactivateCourse()}>
 						←
 					</div>
-					<div className="iconaCorso"> <img src={`../../public/miei_corsi/${corso.icona}`} alt="Icona"/> </div>
+					<div className="iconaCorso"> <img src={`../../public/images/corsi/${corso.icona}`} alt="Icona"/> </div>
 					<div className="titleCorso"> {corso.nome} </div>
 				</div>
 				<div className="content-corso-body">
 					{files.map((file) =>
 						<div className="fileCorso" key={file.id}>
-							<img src={`../../public/files/${file.icona}`} alt="Icona file"/>
+							<img src={`../../public/images/files/${file.icona}`} alt="Icona file"/>
 							<span>{file.nome}</span>
 						</div>
 					)}

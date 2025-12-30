@@ -83,7 +83,7 @@ export default function GestioneProfilo({currentUser, hostName, onUpdateUser}:Ge
         <>
             <h1>PAGINA Gestione Profilo</h1>
 
-			<img src={"fotoProfilo/" + currentUser?.fotoProfilo} alt = "Foto Profilo"/>
+			<img src={"../../public/images/utenti/" + currentUser?.fotoProfilo} alt = "Foto Profilo"/>
 			<button onClick = {() => setIsActiveFormFotoProfilo(true)}>Modifica foto profilo</button>
 
             <h3>Nome: {currentUser?.nome}</h3>

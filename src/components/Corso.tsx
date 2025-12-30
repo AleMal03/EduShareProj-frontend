@@ -24,7 +24,7 @@ export function Corso({ permessi, currentUser, corso, removeCourse, followCourse
             </div>
             
             <div className="corso-body" onClick={() => onChangeActiveCourse(corso)}>
-                <img src={`../../public/miei_corsi/${corso.icona}`} alt="Icona corso" />
+                <img src={`../../public/images/corsi/${corso.icona}`} alt="Icona corso" />
             </div>
             
             <div className="corso-footer">
@@ -46,7 +46,10 @@ export function Corso({ permessi, currentUser, corso, removeCourse, followCourse
 					e.stopPropagation();
 					unfollowCourse(corso.id)
 				}}>Disiscriviti</button>}
-                {(permessi === "SEGUITO" && corso.prezzo > 0) && <p>Acquistato</p>}
+                {(permessi === "SEGUITO" && corso.prezzo > 0) && <button className="btn-buy" onClick = {(e) => {
+					e.stopPropagation();
+					unfollowCourse(corso.id)
+				}}>Chiedi Rimborso</button>}
             </div>
         </div>
     );
