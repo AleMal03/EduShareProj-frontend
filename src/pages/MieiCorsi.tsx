@@ -1,10 +1,11 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, type ReactElement} from "react";
 import { AggiungiCorso } from "./../components/AggiungiCorso"; 
 import { type Corso as CorsoInterface, type User } from "./../data/data-model";
 import { hostName } from "./../App";
 import { queryPost } from "../data/queries";
 import {CorsiTrovati, CourseFilter} from "../components/FiltroCorsi.tsx";
 import {useCorsi} from "../data/handleFiltroCorsi.ts";
+import "../style/MieiCorsi.css"
 
 interface MieiCorsiProps {
     hostName: string;
@@ -12,7 +13,7 @@ interface MieiCorsiProps {
 }
 
 
-export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
+export default function MieiCorsi({ currentUser }: MieiCorsiProps):ReactElement {
     const {corsi, getCorsi, maxCost} = useCorsi(hostName, "/corsi/miei");
     const [showAddCourseForm, setShowAddCourseForm] = useState(false);
 
@@ -64,11 +65,17 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 			.catch((err:Error) => console.error(err.message));
     };
 
+	/* Pseudo scheda corso per l'aggiunta dei corsi */
+	const btnCreaCorso:ReactElement = (
+		<button id="btnCreaCorso" onClick={() => setShowAddCourseForm(true)}>
+			<img src="../../public/images/plus_icon.png" alt="Aggiungi corso" />
+		</button>
+	);
+
     return (
         <>
             <div className="mieicorsi-header">
                 <h1>Corsi pubblicati di <strong>{currentUser?.nome} {currentUser?.cognome}</strong></h1>
-                <button onClick={() => setShowAddCourseForm(true)}>Aggiungi Corso</button>
 
 				<CourseFilter hostName={hostName} onConfirm={getCorsi} maxCost={maxCost}
 							  isOwnerAsking={true} isOwned={false}/>
@@ -82,8 +89,8 @@ export default function MieiCorsi({ currentUser }: MieiCorsiProps) {
 					removeCourse={handleRemoveCourse}
 					followCourse={() => { return }}
                     unfollowCourse={() => { return }}
+					btnCreaCorso={btnCreaCorso}
 				/>
-                {corsi.length === 0 && <p>Nessun corso trovato.</p>}
             </div>
 
             {showAddCourseForm && (

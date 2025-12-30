@@ -5,7 +5,7 @@ import {queryGet} from "../data/queries.ts";
 interface AggiungiCorsoProps {
     hostName: string;
 	closeForm: () => void;
-    addCourse: (nome: string, prezzo: number, materia: string, icona: string, difficolta: string) => void; 
+    addCourse: (nome: string, prezzo: number, materia: string, icona: string, difficolta: string) => void;
 }
 
 export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoProps): ReactElement {
@@ -16,7 +16,8 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
     const [icona, setIcona] = useState("default.png");
     const [difficolta, setDifficolta] = useState("FACILE");
     const [prezzo, setPrezzo] = useState("0");
-    const [materia, setMateria] = useState("Non specificata");
+    const [materia, setMateria] = useState("");
+	const [errorMsg, setErrorMsg] = useState("");
 
 
 	useEffect(() => {
@@ -24,13 +25,14 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
 	}, [hostName]);
 
     const handleConfirm = () => {
-        if (nome.trim() === "") {
-            setNome("Nuovo Corso");
+        if (nome.trim() === "" || materia.trim() === "") {
+            setErrorMsg("Campi obbligatori mancanti!")
             return;
         }
-
-        addCourse(nome, parseInt(prezzo, 10), materia, icona, difficolta);
-        closeForm();
+		else{
+			addCourse(nome, parseInt(prezzo, 10), materia, icona, difficolta);
+			closeForm();
+		}
     };
 
     return (
@@ -40,7 +42,7 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
 
                 <h1>Aggiungi Nuovo Corso</h1>
                 <div>
-                    <label>Nome Corso</label>
+                    <label>Nome Corso (*)</label>
                     <input 
                         type="text" 
                         placeholder="Es. Tecnologie Web"
@@ -50,7 +52,7 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
                 </div>
 
                 <div>
-                    <label>Nome Materia</label>
+                    <label>Nome Materia (*)</label>
                     <input 
                         type="text" 
                         placeholder="Es. Informatica"
@@ -86,12 +88,15 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
 					</select>
                 </div>
 
-                <div >
-                    <div className="form-action ok" onClick={handleConfirm}>
-                        Aggiungi
-                    </div>
+				{/* Per visualizzare il messaggio di errore*/}
+				{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
+
+				<div className="actions">
                     <div className="form-action cancel" onClick={closeForm}>
                         Annulla
+                    </div>
+                    <div className="form-action ok" onClick={handleConfirm}>
+                        Aggiungi
                     </div>
                 </div>
 

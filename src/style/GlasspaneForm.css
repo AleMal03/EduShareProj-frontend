@@ -37,6 +37,7 @@ form textarea{
 
 .glasspane form input[type="text"],
 .glasspane form input[type="password"],
+.glasspane form select,
 .glasspane form textarea{
 	margin-top: 5px;
 	padding: 10px;
@@ -54,6 +55,10 @@ form textarea{
 	min-height: 100px;
 }
 
+.glasspane form{
+	row-gap: 10px;
+}
+
 .glasspane form .actions {
 	display: flex;
 	flex-direction: row;
@@ -62,6 +67,11 @@ form textarea{
 	justify-content: center;
 	column-gap: 10px;
 }
+
+.glasspane .form-action{
+	margin: 0;
+}
+
 
 .errorMessage{
 	color: #ea1818;

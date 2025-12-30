@@ -1,0 +1,33 @@
+#btnCreaCorso {
+	width: 100%;           /* Occupa tutta la cella della griglia */
+	height: 100%;          /* Si espande in altezza come le card vicine */
+	min-height: 300px;     /* Altezza minima per pareggiare le card vuote */
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgba(255, 255, 255, 0.5);
+	border: 3px dashed rgb(0, 131, 143, 0.4); /* Stile "Tratteggiato" */
+	border-radius: 20px;
+	margin: 0;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+#btnCreaCorso:hover {
+	background-color: white;
+	border-color: rgb(210, 0, 90);
+	transform: translateY(-5px);
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#btnCreaCorso img {
+	height: 60px;
+	width: 60px;
+	opacity: 0.6;
+}
+
+#btnCreaCorso:hover img {
+	opacity: 1;
+}

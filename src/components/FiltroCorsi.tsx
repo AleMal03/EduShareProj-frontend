@@ -102,10 +102,11 @@ interface CorsiTrovatiProps {
 	removeCourse: (id:number) => void;
     followCourse: (id:number) => void;
     unfollowCourse: (id:number) => void;
+	btnCreaCorso?: ReactElement;
 }
 
 
-export function CorsiTrovati({hostName, corsi, currentUser, permessi, removeCourse, followCourse, unfollowCourse}: CorsiTrovatiProps): ReactElement {
+export function CorsiTrovati({hostName, corsi, currentUser, permessi, removeCourse, followCourse, unfollowCourse, btnCreaCorso}: CorsiTrovatiProps): ReactElement {
 	const [activeCourse, setActiveCourse] = useState<CorsoInterface|undefined>(undefined);
 
 	function handleChangeActiveCourse(corso:CorsoInterface){
@@ -117,6 +118,7 @@ export function CorsiTrovati({hostName, corsi, currentUser, permessi, removeCour
 	}
 
 	return <div className="lista-corsi">
+		{btnCreaCorso}
 		{corsi?.map((corso) =>
 			<Corso key={corso.id} permessi={permessi} currentUser={currentUser} corso={corso}
 				   removeCourse={removeCourse} followCourse={followCourse} unfollowCourse={unfollowCourse} onChangeActiveCourse={handleChangeActiveCourse}/>

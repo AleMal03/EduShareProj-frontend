@@ -147,6 +147,7 @@ nav.content-nav .dropdown.expanded > img {
     align-items: stretch;
     overflow: scroll;
 	scrollbar-width: none;
+	padding: 10px;
 }
 
 /* ============================================================ */
