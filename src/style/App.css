@@ -253,6 +253,7 @@ a:hover{
 	font-family: "Nunito", sans-serif;
 	font-size: 0.9rem;
 	user-select: none;
+	text-align: center;
 }
 
 .form-action:hover, button:hover{

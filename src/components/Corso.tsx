@@ -20,7 +20,7 @@ export function Corso({ permessi, currentUser, corso, removeCourse, followCourse
             <div className="corso-header">
 				<h1><a onClick={() => onChangeActiveCourse(corso)}>{corso.nome}</a></h1>
                 <p className="sub-text">by {corso.owner}</p>
-                <p>{corso.mediaRecensioni > 0 ? corso.mediaRecensioni+"★" : "Ancora nessuna recensione"}</p>
+                <p className="mediaRecensioni">{corso.mediaRecensioni > 0 ? corso.mediaRecensioni+"★" : "Ancora nessuna recensione"}</p>
             </div>
             
             <div className="corso-body" onClick={() => onChangeActiveCourse(corso)}>

@@ -5,6 +5,7 @@ import type {User} from "../data/data-model.ts";
 import type {Corso as CorsoInterface} from "../data/data-model.ts"
 import {queryGet} from "../data/queries.ts";
 import ContentCorso from "../pages/ContentCorso.tsx";
+import "../style/Filter.css"
 
 
 interface CourseFilterProps {
@@ -39,12 +40,14 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 			Filtra:
 		</div>
 		<div className="filter-item">
-			<input type="text" name="courseName" placeholder="Nome corso" value={nomeCorso}
+			<label htmlFor="nomeCorso">Nome corso</label>
+			<input type="text" name="courseName" id="nomeCorso" placeholder="Nome corso" value={nomeCorso}
 				   onChange={(e) => setNomeCorso(e.currentTarget.value)}/>
 		</div>
 		{!isOwnerAsking &&
 			<div className="filter-item">
-				<input type="text" name="courseTeacher" placeholder="Username insegnante" value={teacher}
+				<label htmlFor="usrTeacher">Username insegnante</label>
+				<input type="text" name="courseTeacher" id="usrTeacher" placeholder="Username insegnante" value={teacher}
 					   onChange={(e) => setTeacher(e.currentTarget.value)}/>
 			</div>
 		}
