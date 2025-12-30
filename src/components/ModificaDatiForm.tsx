@@ -1,5 +1,5 @@
 import {type ReactElement, useState} from "react";
-import "../style/ModificaDatiForm.css"
+import "../style/GlasspaneForm.css"
 
 interface ModificaDatiFormProps{
     onConfirm:(oldS:string, newS:string) => void;
@@ -29,7 +29,7 @@ export function ModificaDatiForm({onConfirm, onCancel, field, value_field, error
 					</>
 				}
 				{field.toLowerCase() === "descrizione" &&
-					<textarea defaultValue={value_field} name={field.toLowerCase()} placeholder="Descrizione..."
+					<textarea defaultValue={value_field} name={field.toLowerCase()} placeholder="Descrizione..." maxLength={500}
 							  onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
 				}
 				{field.toLowerCase() !== "password" && field.toLowerCase() !== "descrizione" &&
@@ -37,13 +37,15 @@ export function ModificaDatiForm({onConfirm, onCancel, field, value_field, error
 									onChange={(e) => {setNewDato(e.currentTarget.value);}}/>
 				}
 			</div>
+
+			{/* Per visualizzare il messaggio di errore*/}
+			{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
+
             <div className="actions">
                 <div className="form-action cancel" onClick = {() => onCancel()}>Annulla</div>
                 <div className="form-action ok" onClick={() => onConfirm(oldDato, newDato)}>Modifica</div>
             </div>
 
-			{/* Per visualizzare il messaggio di errore*/}
-			{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
 
         </form>
     </div>

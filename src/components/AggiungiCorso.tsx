@@ -36,7 +36,7 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
     return (
         <div className="glasspane" onMouseDown={closeForm}>
             
-            <form className="create-collection-request" onMouseDown={(e) => e.stopPropagation()}>
+            <form className="create-course-request" onMouseDown={(e) => e.stopPropagation()}>
 
                 <h1>Aggiungi Nuovo Corso</h1>
                 <div>

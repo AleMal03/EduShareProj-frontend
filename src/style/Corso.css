@@ -7,7 +7,7 @@
 	padding: 20px;
 	display: grid;
 	/* Crea colonne automatiche: minimo 280px, se c'è spazio si allargano */
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	gap: 25px; /* Spazio tra le card */
 }
 
@@ -74,6 +74,7 @@
 	margin-top: auto; /* Assicura che stia sempre in fondo */
 	border-top: 1px solid #e0e0e0;
 	padding-top: 10px;
+	column-gap: 7px;
 }
 
 .corso-footer p {

@@ -115,7 +115,7 @@ export default function GestioneProfilo({currentUser, hostName, onUpdateUser}:Ge
 						<button onClick = {() => setIsActiveFormDescrizione(true)}>Modifica descrizione</button>
 					</div>
 					<div>
-						<h3>Titoli di studio: {(currentUser as Teacher)?.titoliStudio}</h3>
+						<h3>Titoli di studio: {(currentUser as Teacher)?.titoliStudio?.join(" | ")}</h3>
 						<button onClick = {() => setIsActiveFormTitoli(true)}>Modifica titoli di studio</button>
 					</div>
 				</>

@@ -5,7 +5,7 @@
 
 form h1 {
 	margin: 5px 0;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	text-align: center;
 	color: rgb(210, 0, 90);
 }
@@ -15,38 +15,57 @@ form label {
 	font-weight: bold;
 }
 
-form input[type="text"] {
+form input[type="text"],
+form input[type="password"],
+form textarea{
 	font-family: "Nunito", sans-serif;
 	font-size: 0.9rem;
 }
 
-form.create-collection-request {
-	border: 3px solid rgb(104, 185, 185);
+.glasspane form {
+	border: 3px solid #00838F;
 	background-color: #cde8e8;
+	min-width: 390px;
+	min-height: 150px;
 	padding: 20px 30px 10px 30px;
 	margin: 10px;
 	border-radius: 20px;
 	display: flex;
 	flex-direction: column;
-	align-items: stretch;
-
+	align-items: center;
 }
 
-.create-collection-request input[type="text"] {
+.glasspane form input[type="text"],
+.glasspane form input[type="password"],
+.glasspane form textarea{
 	margin-top: 5px;
 	padding: 10px;
 	border-radius: 5px;
+	border: 2px solid #607D8A;
+	color: #2C3E50;
+	font-weight: bold;
 	min-width: 300px;
-
 	display: flex;
-	justify-content: space-between; /* Separa testo a sx e freccia a dx */
-	align-items: center; /* Allinea verticalmente al centro */
 }
 
-.create-collection-request .actions {
+/* Solo textarea */
+.glasspane form textarea {
+	min-width: 300px;
+	min-height: 100px;
+}
+
+.glasspane form .actions {
 	display: flex;
 	flex-direction: row;
-	margin: 10px 0;
+	margin-top: 5px;
+	margin-bottom: 10px;
 	justify-content: center;
 	column-gap: 10px;
+}
+
+.errorMessage{
+	color: #ea1818;
+	margin-top: 10px;
+	margin-left: 35px;
+	align-self: flex-start;
 }

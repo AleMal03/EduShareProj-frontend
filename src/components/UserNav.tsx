@@ -100,7 +100,7 @@ function LoginForm({onCancel, onConfirm, errorMsg}: LoginFormProps): ReactElemen
 		<div className = "glasspane" onMouseDown = {(e) => {
 			if(e.target === e.currentTarget) onCancel();
 		}}>
-			<form className="create-collection-request">
+			<form className="login-request">
 
 				<h1>Inserire dati di accesso:</h1>
 				<div>
@@ -112,14 +112,15 @@ function LoginForm({onCancel, onConfirm, errorMsg}: LoginFormProps): ReactElemen
 					}}/>
 				</div>
 
+				{/* Per visualizzare il messaggio di errore*/}
+				{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
+
 				{/* Buttons */}
 				<div className="actions">
 					<div className="form-action cancel" onClick = {() => onCancel()}>Annulla</div>
 					<div className="form-action ok" onClick={() => onConfirm(usr, psw)}>Accedi</div>
 				</div>
 
-				{/* Per visualizzare il messaggio di errore*/}
-				{errorMsg != "" && <div className="errorMessage"> {errorMsg} </div>}
 			</form>
 		</div>
 	);

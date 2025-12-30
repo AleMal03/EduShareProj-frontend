@@ -141,6 +141,7 @@ nav.content-nav .dropdown.expanded > img {
 .main {
     grid-row-start: 2;
     grid-row-end: 3;
+	color: #2C3E50;
     background-color: rgb(225, 239, 239, 0.55);
     justify-content: stretch;
     align-items: stretch;
@@ -203,7 +204,7 @@ footer a:hover{
 
 footer .license img.cclicense {
   height: 20px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .credits {
@@ -251,10 +252,16 @@ a:hover{
 	margin-top: 10px;
 	font-family: "Nunito", sans-serif;
 	font-size: 0.9rem;
+	user-select: none;
 }
 
 .form-action:hover, button:hover{
 	background-color: rgb(255, 241, 118, 0.9);
 	border: 2px solid rgb(252, 215, 53, 0.9);
 	cursor: pointer;
+}
+
+/* SELEZIONE UTENTE */
+::selection{
+	background-color: #FFF176;
 }
