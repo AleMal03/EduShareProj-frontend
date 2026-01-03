@@ -92,3 +92,18 @@
 	padding: 5px 15px;
 	font-size: 0.8rem;
 }
+
+.mieicorsi-header h1,
+.corsiComprati-header h1 {
+  font-size: 2rem;          
+  color: #2c3e50;           
+  text-align: center;      
+  margin-bottom: 1.5rem;    
+  font-weight: 400;         
+}
+
+.mieicorsi-header h1 strong,
+.corsiComprati-header h1 strong {
+  color: #00838f;
+  font-weight: 700;
+}

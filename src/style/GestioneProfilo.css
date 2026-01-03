@@ -1,0 +1,187 @@
+/* --- Layout Generale --- */
+.profile-page {
+  background-color: var(--c-bg);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--c-text-main);
+}
+
+.profile-card {
+  background-color: var(--c-white);
+  width: 100%;
+  max-width: 800px;
+  border-radius: var(--radius-std);
+  box-shadow: var(--shadow-std);
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- Header del Profilo (Foto e Nome) --- */
+.profile-header {
+  background: linear-gradient(135deg, var(--c-white) 0%, var(--c-form-bg) 100%);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-bottom: 4px solid var(--c-primary);
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.profile-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--c-primary);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-edit-photo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--c-accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.btn-edit-photo:hover {
+  background-color: var(--c-accent-hover);
+}
+
+.profile-name h2 {
+  margin: 0;
+  color: var(--c-primary);
+  font-size: 2rem;
+}
+
+.profile-name h4 {
+  margin: 0.5rem 0 0;
+  color: var(--c-text-sub);
+  font-weight: 400;
+}
+
+/* --- Corpo del Profilo (Griglia Dati) --- */
+.profile-body {
+  padding: 2rem;
+}
+
+.data-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 600px) {
+  .data-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.data-item {
+  background-color: #f9fbfb;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--c-text-sub);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.data-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.data-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--c-text-sub);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.data-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--c-text-main);
+  word-break: break-word;
+}
+
+/* --- Sezione Teacher Specifica --- */
+.teacher-area {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px dashed var(--c-text-sub);
+}
+
+.area-title {
+  color: var(--c-accent);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- Bottoni Gialli (Standard) --- */
+.btn-action {
+  background-color: var(--c-btn-bg);
+  border: 2px solid var(--c-btn-border);
+  color: var(--c-text-main);
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  align-self: flex-start;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.btn-action:hover {
+  background-color: var(--c-btn-border);
+  transform: translateY(-2px);
+}
+
+/* --- Gestione Modale Overlay --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 62, 80, 0.85); /* Text main scuro */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+/* Se il tuo componente ModificaDatiForm non ha uno stile wrapper, 
+   questo aiuta a contenerlo, altrimenti puoi rimuoverlo */
+.modal-overlay > * {
+  background: var(--c-form-bg);
+  padding: 2rem;
+  border-radius: var(--radius-std);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  max-width: 500px;
+  width: 100%;
+}

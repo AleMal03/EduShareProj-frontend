@@ -4,6 +4,7 @@ import { queryGet, queryPost } from "../data/queries";
 import { hostName } from "../App";
 import {CorsiTrovati, CourseFilter} from "../components/FiltroCorsi.tsx";
 import {useCorsi} from "../data/handleFiltroCorsi.ts";
+import "../style/MieiCorsi.css"
 
 interface CorsiCompratiProps{
     currentUser: User | null;

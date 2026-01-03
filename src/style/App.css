@@ -1,3 +1,22 @@
+:root {
+  /* Pattern Colori definito */
+  --c-primary: #00838f;        /* Teal */
+  --c-bg: #e1efef;             /* Background pagina */
+  --c-form-bg: #cde8e8;        /* Form BG */
+  --c-accent: #d2005a;         /* Magenta */
+  --c-accent-hover: #a80048;
+  --c-btn-bg: #fff176;         /* Button BG */
+  --c-btn-border: #fdd835;     /* Button Border */
+  --c-white: #ffffff;          /* Header/Card */
+  --c-footer: #37474f;
+  --c-text-main: #2c3e50;
+  --c-text-sub: #607d8b;
+
+  /* Spaziature e Bordi */
+  --radius-std: 12px;
+  --shadow-std: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 /* ============================================================ */
 /* INIZIO HEADER 											 	*/
 /* ============================================================ */

@@ -1,143 +1,241 @@
 import { ModificaDatiForm } from "../components/ModificaDatiForm";
-import type {User, Teacher} from "./../data/data-model"
-import {useState} from "react"
-import {queryPost} from "../data/queries.ts";
-import type {SessionData} from "../App.tsx";
+import type { User, Teacher } from "./../data/data-model";
+import { useState } from "react";
+import { queryPost } from "../data/queries.ts";
+import type { SessionData } from "../App.tsx";
+import "./../style/GestioneProfilo.css";
 
 interface GestioneProfiloProps {
-	currentUser: User | null;
-	hostName: string;
-	onUpdateUser: () => void;
+    currentUser: User | null;
+    hostName: string;
+    onUpdateUser: () => void;
 }
 
-export default function GestioneProfilo({currentUser, hostName, onUpdateUser}:GestioneProfiloProps){
+export default function GestioneProfilo({ currentUser, hostName, onUpdateUser }: GestioneProfiloProps) {
     const [isActiveFormFotoProfilo, setIsActiveFormFotoProfilo] = useState<boolean>(false);
     const [isActiveFormEmail, setIsActiveFormEmail] = useState<boolean>(false);
     const [isActiveFormLParlate, setIsActiveFormLParlate] = useState<boolean>(false);
     const [isActiveFormDescrizione, setIsActiveFormDescrizione] = useState<boolean>(false);
     const [isActiveFormTitoli, setIsActiveFormTitoli] = useState<boolean>(false);
     const [isActiveFormPassword, setIsActiveFormPassword] = useState<boolean>(false);
-	const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
-	function handleModificaDatiString(setIsActiveForm:(b:boolean)=>void, campo:string, oldData:string, newData:string){
-		if(newData.length < 3){
-			setErrorMsg("Inserire un dato con almeno 3 caratteri");
-			return;
-		}
-		if(newData === oldData){
-			setErrorMsg("Il nuovo valore dev'essere diverso dal precedente");
-			return;
-		}
+    function handleModificaDatiString(setIsActiveForm: (b: boolean) => void, campo: string, oldData: string, newData: string) {
+        if (newData.length < 3) { setErrorMsg("Inserire un dato con almeno 3 caratteri"); return; }
+        if (newData === oldData) { setErrorMsg("Il nuovo valore dev'essere diverso dal precedente"); return; }
+        queryModificaDati(setIsActiveForm, campo, { data: newData });
+    }
 
-		queryModificaDati(setIsActiveForm, campo, {data:newData});
-	}
+    function handleModificaDatiList(setIsActiveForm: (b: boolean) => void, campo: string, oldData: string[], newData: string[]) {
+        oldData = oldData.filter(s => s.trim() !== "");
+        newData = newData.filter(s => s.trim() !== "");
+        if (newData.length < 1) { setErrorMsg("Inserire almeno un elemento"); return; }
+        if (newData === oldData) { setErrorMsg("Il nuovo valore dev'essere diverso dal precedente"); return; }
+        queryModificaDati(setIsActiveForm, campo, { data: newData });
+    }
 
-	function handleModificaDatiList(setIsActiveForm:(b:boolean)=>void, campo:string, oldData:string[], newData:string[]){
-		oldData = oldData.filter(s => s.trim() !== "");
-		newData = newData.filter(s => s.trim() !== "");
+    function handleModificaPassword(setIsActiveForm: (b: boolean) => void, oldPassword: string, newPassword: string) {
+        const data = { oldPsw: oldPassword, newPsw: newPassword }
+        queryModificaDati(setIsActiveForm, "password", data);
+    }
 
-		console.log(newData);
+    function queryModificaDati(setIsActiveForm: (b: boolean) => void, campo: string, data: unknown) {
+        setErrorMsg("");
+        queryPost<SessionData>(`${hostName}/modify_data/${campo}`, data)
+            .then((s: SessionData) => {
+                console.log(s.message);
+                setIsActiveForm(false);
+                onUpdateUser();
+            })
+            .catch((err: Error) => {
+                setErrorMsg(err.message);
+            });
+    }
 
-		if(newData.length < 1){
-			setErrorMsg("Inserire almeno un elemento");
-			return;
-		}
-		if(newData === oldData){
-			setErrorMsg("Il nuovo valore dev'essere diverso dal precedente");
-			return;
-		}
-
-		queryModificaDati(setIsActiveForm, campo, {data:newData});
-	}
-
-	function handleModificaPassword(setIsActiveForm:(b:boolean)=>void, oldPassword:string, newPassword:string){
-		interface pswPayload{
-			oldPsw:string,
-			newPsw:string
-		}
-
-		const data:pswPayload = {
-			oldPsw: oldPassword,
-			newPsw: newPassword
-		}
-
-		queryModificaDati(setIsActiveForm, "password", data);
-	}
-
-	function queryModificaDati(setIsActiveForm:(b:boolean)=>void, campo:string, data:unknown){
-		setErrorMsg("");
-
-		// Query per la modifica del dato server side
-		queryPost<SessionData>(`${hostName}/modify_data/${campo}`, data)
-			.then((s:SessionData)=>{
-				console.log(s.message);
-				setIsActiveForm(false);
-				onUpdateUser();
-			})
-			.catch((err:Error) => {
-				setErrorMsg(err.message);	// Messaggio di errore da visualizzare sul form
-			});
-	}
+    // Funzione helper per rendere i modali sopra tutto il resto
+    const ModalWrapper = ({ children, onClose }: { children: React.ReactNode, onClose: () => void }) => (
+        <div className="modal-overlay">
+            {children}
+        </div>
+    );
 
     return (
-        <>
-            <h1>PAGINA Gestione Profilo</h1>
+        <div className="profile-page">
+            <div className="profile-card">
+                
+                {/* --- HEADER: Foto, Nome, Username --- */}
+                <div className="profile-header">
+                    <div className="profile-avatar-wrapper">
+                        <img 
+                            className="profile-img"
+                            src={"../../public/images/utenti/" + currentUser?.fotoProfilo} 
+                            alt="Foto Profilo" 
+                        />
+                        <button 
+                            className="btn-edit-photo" 
+                            onClick={() => setIsActiveFormFotoProfilo(true)}
+                            title="Modifica Foto"
+                        >
+                            ✎
+                        </button>
+                    </div>
+                    
+                    <div className="profile-name">
+                        <h2>{currentUser?.nome} {currentUser?.cognome}</h2>
+                        <h4>@{currentUser?.username}</h4>
+                        <button className="btn-action" onClick={() => setIsActiveFormPassword(true)}>
+                            Modifica Password
+                        </button>
+                    </div>
+                </div>
 
-			<img src={"../../public/images/utenti/" + currentUser?.fotoProfilo} alt = "Foto Profilo"/>
-			<button onClick = {() => setIsActiveFormFotoProfilo(true)}>Modifica foto profilo</button>
+                {/* --- BODY: Dati Utente --- */}
+                <div className="profile-body">
+                    <div className="data-section">
+                        {/* Età */}
+                        <div className="data-item">
+                            <div>
+                                <div className="data-label">Età</div>
+                                <div className="data-value">{currentUser?.eta} anni</div>
+                            </div>
+                        </div>
 
-            <h3>Nome: {currentUser?.nome}</h3>
-            <h3>Cognome: {currentUser?.cognome}</h3>
-            <h3>Username: {currentUser?.username}</h3>
-			<button onClick = {() => setIsActiveFormPassword(true)}>Modifica Password</button>
+                        {/* Nazionalità */}
+                        <div className="data-item">
+                            <div>
+                                <div className="data-label">Nazionalità</div>
+                                <div className="data-value">{currentUser?.nazionalita}</div>
+                            </div>
+                        </div>
 
-            <div>
-                <h3>Età: {currentUser?.eta}</h3>
+                        {/* Email */}
+                        <div className="data-item full-width">
+                            <div>
+                                <div className="data-label">Email</div>
+                                <div className="data-value">{currentUser?.email}</div>
+                            </div>
+                            <button className="btn-action" onClick={() => setIsActiveFormEmail(true)}>Modifica</button>
+                        </div>
+
+                        {/* Lingue */}
+                        <div className="data-item full-width">
+                            <div>
+                                <div className="data-label">Lingue Parlate</div>
+                                <div className="data-value">{currentUser?.lingueParlate?.join(" | ")}</div>
+                            </div>
+                            <button className="btn-action" onClick={() => setIsActiveFormLParlate(true)}>Modifica</button>
+                        </div>
+
+                        {/* Credito */}
+                        <div className="data-item full-width" style={{borderLeftColor: 'var(--c-primary)'}}>
+                            <div>
+                                <div className="data-label">Credito Residuo</div>
+                                <div className="data-value" style={{color: 'var(--c-primary)'}}>€ {currentUser?.credito}</div>
+                            </div>
+                            <button className="btn-action">Ricarica Credito</button>
+                        </div>
+                    </div>
+
+                    {/* --- SEZIONE TEACHER --- */}
+                    {currentUser?.ruoli.includes("TEACHER") && (
+                        <div className="teacher-area">
+                            <h3 className="area-title">Area Insegnante</h3>
+                            <div className="data-section">
+                                <div className="data-item full-width">
+                                    <div>
+                                        <div className="data-label">About Me</div>
+                                        <div className="data-value">{(currentUser as Teacher)?.aboutMe}</div>
+                                    </div>
+                                    <button className="btn-action" onClick={() => setIsActiveFormDescrizione(true)}>Modifica</button>
+                                </div>
+
+                                <div className="data-item full-width">
+                                    <div>
+                                        <div className="data-label">Titoli di Studio</div>
+                                        <div className="data-value">{(currentUser as Teacher)?.titoliStudio?.join(" | ")}</div>
+                                    </div>
+                                    <button className="btn-action" onClick={() => setIsActiveFormTitoli(true)}>Modifica</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
-            <div>
-                <h3>Email: {currentUser?.email}</h3>
-                <button onClick = {() => setIsActiveFormEmail(true)}>Modifica Email</button>
-            </div>
-            <h3>Nazionalità: {currentUser?.nazionalita}</h3>
-            <div>
-                <h3>Lingue parlate: {currentUser?.lingueParlate?.join(" | ")}</h3>
-                <button onClick = {() => setIsActiveFormLParlate(true)}>Modifica Lingue Parlate</button>
-            </div>
-            <div>
-                <h3>Credito Residuo: {currentUser?.credito}</h3>
-                <button>Ricarica Credito</button>
-            </div>
 
-			{currentUser?.ruoli.includes("TEACHER") && (
-				<>
-					<div>
-						<h3>About me: {(currentUser as Teacher)?.aboutMe}</h3>
-						<button onClick = {() => setIsActiveFormDescrizione(true)}>Modifica descrizione</button>
-					</div>
-					<div>
-						<h3>Titoli di studio: {(currentUser as Teacher)?.titoliStudio?.join(" | ")}</h3>
-						<button onClick = {() => setIsActiveFormTitoli(true)}>Modifica titoli di studio</button>
-					</div>
-				</>
-			)}
 
-			{isActiveFormFotoProfilo && <ModificaDatiForm onCancel={() => {setIsActiveFormFotoProfilo(false); setErrorMsg("");}}
-														  onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormFotoProfilo, "fotoProfilo", oldDato, newDato)} field="Foto profilo" value_field={currentUser?.fotoProfilo + ""} errorMsg={errorMsg}/>}
+            {/* --- MODULS --- */}
+            
+            {isActiveFormFotoProfilo && (
+                <ModalWrapper onClose={() => setIsActiveFormFotoProfilo(false)}>
+                    <ModificaDatiForm 
+                        onCancel={() => {setIsActiveFormFotoProfilo(false); setErrorMsg("");}}
+                        onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormFotoProfilo, "fotoProfilo", oldDato, newDato)} 
+                        field="Foto profilo" 
+                        value_field={currentUser?.fotoProfilo + ""} 
+                        errorMsg={errorMsg}
+                    />
+                </ModalWrapper>
+            )}
 
-            {isActiveFormEmail && <ModificaDatiForm onCancel={() => {setIsActiveFormEmail(false); setErrorMsg("");}}
-													onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormEmail, "email", oldDato, newDato)} field="Email" value_field={currentUser?.email + ""} errorMsg={errorMsg}/>}
+            {isActiveFormEmail && (
+                <ModalWrapper onClose={() => setIsActiveFormEmail(false)}>
+                    <ModificaDatiForm 
+                        onCancel={() => {setIsActiveFormEmail(false); setErrorMsg("");}}
+                        onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormEmail, "email", oldDato, newDato)} 
+                        field="Email" 
+                        value_field={currentUser?.email + ""} 
+                        errorMsg={errorMsg}
+                    />
+                </ModalWrapper>
+            )}
 
-            {isActiveFormDescrizione && <ModificaDatiForm onCancel={() => {setIsActiveFormDescrizione(false); setErrorMsg("");}}
-														  onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormDescrizione, "aboutMe", oldDato, newDato)} field="Descrizione" value_field={(currentUser as Teacher)?.aboutMe + ""}  errorMsg={errorMsg}/>}
+            {isActiveFormDescrizione && (
+                <ModalWrapper onClose={() => setIsActiveFormDescrizione(false)}>
+                    <ModificaDatiForm 
+                        onCancel={() => {setIsActiveFormDescrizione(false); setErrorMsg("");}}
+                        onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormDescrizione, "aboutMe", oldDato, newDato)} 
+                        field="Descrizione" 
+                        value_field={(currentUser as Teacher)?.aboutMe + ""} 
+                        errorMsg={errorMsg}
+                    />
+                </ModalWrapper>
+            )}
 
-            {isActiveFormLParlate && <ModificaDatiForm onCancel={() => {setIsActiveFormLParlate(false); setErrorMsg("");}}
-													   onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormLParlate, "lingueParlate", oldDato.split(" "), newDato.split(" "))} field="Lingue Parlate" value_field={currentUser?.lingueParlate?.join(" ") + ""}  errorMsg={errorMsg}/>}
+            {isActiveFormLParlate && (
+                <ModalWrapper onClose={() => setIsActiveFormLParlate(false)}>
+                    <ModificaDatiForm 
+                        onCancel={() => {setIsActiveFormLParlate(false); setErrorMsg("");}}
+                        onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormLParlate, "lingueParlate", oldDato.split(" "), newDato.split(" "))} 
+                        field="Lingue Parlate" 
+                        value_field={currentUser?.lingueParlate?.join(" ") + ""} 
+                        errorMsg={errorMsg}
+                    />
+                </ModalWrapper>
+            )}
 
-			{isActiveFormTitoli&& <ModificaDatiForm onCancel={() => {setIsActiveFormTitoli(false); setErrorMsg("");}}
-													onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormTitoli, "titoliStudio", oldDato.split(" "), newDato.split(" "))} field="Titoli di Studio" value_field={(currentUser as Teacher)?.titoliStudio + ""}  errorMsg={errorMsg}/>}
-                                                    
-			{isActiveFormPassword && <ModificaDatiForm onCancel={() => {setIsActiveFormPassword(false); setErrorMsg("");}}
-													   onConfirm={(oldDato, newDato) => handleModificaPassword(setIsActiveFormPassword, oldDato, newDato)} field="Password" value_field={""}  errorMsg={errorMsg}/>}
-		</>
+            {isActiveFormTitoli && (
+                <ModalWrapper onClose={() => setIsActiveFormTitoli(false)}>
+                    <ModificaDatiForm 
+                        onCancel={() => {setIsActiveFormTitoli(false); setErrorMsg("");}}
+                        onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormTitoli, "titoliStudio", oldDato.split(" "), newDato.split(" "))} 
+                        field="Titoli di Studio" 
+                        value_field={(currentUser as Teacher)?.titoliStudio + ""} 
+                        errorMsg={errorMsg}
+                    />
+                </ModalWrapper>
+            )}
+
+            {isActiveFormPassword && (
+                <ModalWrapper onClose={() => setIsActiveFormPassword(false)}>
+                    <ModificaDatiForm 
+                        onCancel={() => {setIsActiveFormPassword(false); setErrorMsg("");}}
+                        onConfirm={(oldDato, newDato) => handleModificaPassword(setIsActiveFormPassword, oldDato, newDato)} 
+                        field="Password" 
+                        value_field={""} 
+                        errorMsg={errorMsg}
+                    />
+                </ModalWrapper>
+            )}
+        </div>
     );
 }

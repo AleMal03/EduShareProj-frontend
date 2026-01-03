@@ -6,6 +6,7 @@ import { queryPost } from "../data/queries";
 import {CorsiTrovati, CourseFilter} from "../components/FiltroCorsi.tsx";
 import {useCorsi} from "../data/handleFiltroCorsi.ts";
 import "../style/MieiCorsi.css"
+import "../style/Corso.css"
 
 interface MieiCorsiProps {
     hostName: string;

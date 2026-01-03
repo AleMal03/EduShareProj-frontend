@@ -1,10 +1,162 @@
-/* ============================================================ */
-/* INIZIO CONTENT CORSO											*/
-/* ============================================================ */
+/* 1. L'Overlay a tutto schermo */
+.glasspane {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--c-bg-overlay);
+  backdrop-filter: blur(5px); /* Effetto sfocatura sfondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Assicura che stia sopra a tutto */
+  animation: fadeIn 0.3s ease-in-out;
+}
 
-.content-corso{
-	height: 85%;
-	width: 85%;
-	background-color: #848fc8;
-	color: white;
+/* 2. Il contenitore modale centrale */
+.content-corso {
+  background-color: var(--c-white);
+  width: 90%;
+  max-width: 1000px;
+  height: 80vh; /* Altezza fissa per permettere lo scroll interno */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  flex-direction: column; /* Header sopra, body sotto */
+  overflow: hidden;
+}
+
+/* 3. Header del Corso (Titolo e Icona) */
+.content-corso-header {
+  background-color: var(--c-form-bg); /* Colore #cde8e8 */
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 4px solid var(--c-primary);
+  flex-shrink: 0; /* Impedisce all'header di schiacciarsi */
+}
+
+/* Tasto Indietro */
+.backBtn {
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--c-text-sub);
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.backBtn:hover {
+  background-color: var(--c-primary);
+  color: var(--c-white);
+  transform: translateX(-3px); /* Effetto movimento indietro */
+}
+
+/* Icona del Corso nell'header */
+.iconaCorso img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--c-white);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Titolo */
+.titleCorso {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--c-text-main);
+  text-transform: capitalize;
+}
+
+/* 4. Body (Griglia dei file) */
+.content-corso-body {
+  padding: 2rem;
+  overflow-y: auto; /* Scroll solo se i file sono tanti */
+  background-color: #fcfdfd;
+  
+  /* Layout a Griglia Responsive */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Scrollbar personalizzata per il body */
+.content-corso-body::-webkit-scrollbar {
+  width: 8px;
+}
+.content-corso-body::-webkit-scrollbar-thumb {
+  background-color: var(--c-text-sub);
+  border-radius: 4px;
+}
+
+/* 5. Singolo File (Card) */
+.fileCorso {
+  background-color: var(--c-white);
+  border: 2px solid #eef2f2;
+  border-radius: var(--radius-sm);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.fileCorso:hover {
+  border-color: var(--c-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 131, 143, 0.15); /* Ombra Teal leggera */
+}
+
+.fileCorso img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.fileCorso span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--c-text-main);
+  word-wrap: break-word; /* Va a capo se il nome è lungo */
+  width: 100%;
+  line-height: 1.3;
+}
+
+/* Animazione di entrata */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive Mobile */
+@media (max-width: 600px) {
+  .content-corso {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  
+  .content-corso-header {
+    padding: 1rem;
+  }
+  
+  .titleCorso {
+    font-size: 1.3rem;
+  }
 }
