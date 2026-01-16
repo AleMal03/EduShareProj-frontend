@@ -1,8 +1,7 @@
 import { type ReactElement, useEffect, useState } from "react";
-// Ho unito gli import delle interfacce per pulizia
 import type { Corso as CorsoInterface, File } from "../data/data-model.ts";
 import { queryGet } from "../data/queries.ts";
-import "./../style/ContentCorso.css"; // Assicurati che il percorso sia corretto
+import "./../style/ContentCorso.css";
 
 interface ContentCorsoProps {
     hostName: string;

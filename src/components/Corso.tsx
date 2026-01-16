@@ -24,7 +24,7 @@ export function Corso({ permessi, currentUser, corso, removeCourse, followCourse
             </div>
             
             <div className="corso-body" onClick={() => onChangeActiveCourse(corso)}>
-                <img src={`../../public/images/corsi/${corso.icona}`} alt="Icona corso" />
+                <img src={`/images/corsi/${corso.icona}`} alt="Icona corso" />
             </div>
             
             <div className="corso-footer">

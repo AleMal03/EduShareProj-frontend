@@ -52,13 +52,6 @@ export default function GestioneProfilo({ currentUser, hostName, onUpdateUser }:
             });
     }
 
-    // Funzione helper per rendere i modali sopra tutto il resto
-    const ModalWrapper = ({ children, onClose }: { children: React.ReactNode, onClose: () => void }) => (
-        <div className="modal-overlay">
-            {children}
-        </div>
-    );
-
     return (
         <div className="profile-page">
             <div className="profile-card">
@@ -162,79 +155,66 @@ export default function GestioneProfilo({ currentUser, hostName, onUpdateUser }:
                 </div>
             </div>
 
-
-            {/* --- MODULS --- */}
+            {/* --- MODULES --- */}
             
             {isActiveFormFotoProfilo && (
-                <ModalWrapper onClose={() => setIsActiveFormFotoProfilo(false)}>
-                    <ModificaDatiForm 
-                        onCancel={() => {setIsActiveFormFotoProfilo(false); setErrorMsg("");}}
-                        onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormFotoProfilo, "fotoProfilo", oldDato, newDato)} 
-                        field="Foto profilo" 
-                        value_field={currentUser?.fotoProfilo + ""} 
-                        errorMsg={errorMsg}
-                    />
-                </ModalWrapper>
+				<ModificaDatiForm
+					onCancel={() => {setIsActiveFormFotoProfilo(false); setErrorMsg("");}}
+					onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormFotoProfilo, "fotoProfilo", oldDato, newDato)}
+					field="Foto profilo"
+					value_field={currentUser?.fotoProfilo + ""}
+					errorMsg={errorMsg}
+				/>
             )}
 
             {isActiveFormEmail && (
-                <ModalWrapper onClose={() => setIsActiveFormEmail(false)}>
-                    <ModificaDatiForm 
-                        onCancel={() => {setIsActiveFormEmail(false); setErrorMsg("");}}
-                        onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormEmail, "email", oldDato, newDato)} 
-                        field="Email" 
-                        value_field={currentUser?.email + ""} 
-                        errorMsg={errorMsg}
-                    />
-                </ModalWrapper>
+				<ModificaDatiForm
+					onCancel={() => {setIsActiveFormEmail(false); setErrorMsg("");}}
+					onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormEmail, "email", oldDato, newDato)}
+					field="Email"
+					value_field={currentUser?.email + ""}
+					errorMsg={errorMsg}
+				/>
             )}
 
             {isActiveFormDescrizione && (
-                <ModalWrapper onClose={() => setIsActiveFormDescrizione(false)}>
-                    <ModificaDatiForm 
-                        onCancel={() => {setIsActiveFormDescrizione(false); setErrorMsg("");}}
-                        onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormDescrizione, "aboutMe", oldDato, newDato)} 
-                        field="Descrizione" 
-                        value_field={(currentUser as Teacher)?.aboutMe + ""} 
-                        errorMsg={errorMsg}
-                    />
-                </ModalWrapper>
+				<ModificaDatiForm
+					onCancel={() => {setIsActiveFormDescrizione(false); setErrorMsg("");}}
+					onConfirm={(oldDato, newDato) => handleModificaDatiString(setIsActiveFormDescrizione, "aboutMe", oldDato, newDato)}
+					field="Descrizione"
+					value_field={(currentUser as Teacher)?.aboutMe + ""}
+					errorMsg={errorMsg}
+				/>
             )}
 
             {isActiveFormLParlate && (
-                <ModalWrapper onClose={() => setIsActiveFormLParlate(false)}>
-                    <ModificaDatiForm 
-                        onCancel={() => {setIsActiveFormLParlate(false); setErrorMsg("");}}
-                        onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormLParlate, "lingueParlate", oldDato.split(" "), newDato.split(" "))} 
-                        field="Lingue Parlate" 
-                        value_field={currentUser?.lingueParlate?.join(" ") + ""} 
-                        errorMsg={errorMsg}
-                    />
-                </ModalWrapper>
+				<ModificaDatiForm
+					onCancel={() => {setIsActiveFormLParlate(false); setErrorMsg("");}}
+					onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormLParlate, "lingueParlate", oldDato.split(" "), newDato.split(" "))}
+					field="Lingue Parlate"
+					value_field={currentUser?.lingueParlate?.join(" ") + ""}
+					errorMsg={errorMsg}
+				/>
             )}
 
             {isActiveFormTitoli && (
-                <ModalWrapper onClose={() => setIsActiveFormTitoli(false)}>
-                    <ModificaDatiForm 
-                        onCancel={() => {setIsActiveFormTitoli(false); setErrorMsg("");}}
-                        onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormTitoli, "titoliStudio", oldDato.split(" "), newDato.split(" "))} 
-                        field="Titoli di Studio" 
-                        value_field={(currentUser as Teacher)?.titoliStudio + ""} 
-                        errorMsg={errorMsg}
-                    />
-                </ModalWrapper>
+				<ModificaDatiForm
+					onCancel={() => {setIsActiveFormTitoli(false); setErrorMsg("");}}
+					onConfirm={(oldDato, newDato) => handleModificaDatiList(setIsActiveFormTitoli, "titoliStudio", oldDato.split(" "), newDato.split(" "))}
+					field="Titoli di Studio"
+					value_field={(currentUser as Teacher)?.titoliStudio + ""}
+					errorMsg={errorMsg}
+				/>
             )}
 
             {isActiveFormPassword && (
-                <ModalWrapper onClose={() => setIsActiveFormPassword(false)}>
-                    <ModificaDatiForm 
-                        onCancel={() => {setIsActiveFormPassword(false); setErrorMsg("");}}
-                        onConfirm={(oldDato, newDato) => handleModificaPassword(setIsActiveFormPassword, oldDato, newDato)} 
-                        field="Password" 
-                        value_field={""} 
-                        errorMsg={errorMsg}
-                    />
-                </ModalWrapper>
+				<ModificaDatiForm
+					onCancel={() => {setIsActiveFormPassword(false); setErrorMsg("");}}
+					onConfirm={(oldDato, newDato) => handleModificaPassword(setIsActiveFormPassword, oldDato, newDato)}
+					field="Password"
+					value_field={""}
+					errorMsg={errorMsg}
+				/>
             )}
         </div>
     );

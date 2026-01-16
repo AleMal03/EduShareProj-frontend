@@ -22,7 +22,7 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 	const [materia, setMateria] = useState<string>("");
 	const [difficolta, setDifficolta] = useState<string>("");
 	const [prezzo, setPrezzo] = useState<number>(maxCost);
-	const [rating, setRating] = useState<number>(5);
+	const [rating, setRating] = useState<number>(1);
 	const [materie, setMaterie] = useState<string[]>([]);
 	const [livelliDifficolta, setLivelliDifficolta] = useState<string[]>([]);
 
@@ -34,6 +34,15 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 		queryGet<string[]>(`${hostName}/corsi/materie`).then(s => setMaterie(s));
 		queryGet<string[]>(`${hostName}/corsi/difficolta`).then(d => setLivelliDifficolta(d));
 	}, [hostName]);
+
+	function handleResetFiltri(){
+		setNomeCorso("");
+		setTeacher("");
+		setMateria("");
+		setDifficolta("");
+		setPrezzo(maxCost);
+		setRating(1);
+	}
 
 	return <form className="filter">
 		<div className="filter-title">
@@ -70,7 +79,7 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
 		{!isOwnerAsking && !isOwned &&
 			<div className="filter-item">
 				<label htmlFor="coursePrezzo">Prezzo massimo</label>
-				<input id="coursePrezzo" type="range" min="0" max={maxCost} step="1" defaultValue={maxCost}
+				<input id="coursePrezzo" type="range" min="0" max={maxCost} step="1" value={prezzo}
 					   onChange={e => setPrezzo(e.currentTarget.valueAsNumber)}/>
 				<label htmlFor="coursePrezzo">€{prezzo}</label>
 			</div>
@@ -85,7 +94,11 @@ export function CourseFilter({onConfirm, hostName, maxCost, isOwnerAsking, isOwn
             </div>
         }
 		<div className="actions">
-            <div className="form-action ok"
+            <div className="form-action clear"
+                 onClick={() => handleResetFiltri()}>
+                 Cancella filtri
+            </div>
+			<div className="form-action ok"
                  onClick={() => onConfirm({ nomeCorso, teacher, materia, difficolta, prezzo, rating })}>
                  Cerca
             </div>

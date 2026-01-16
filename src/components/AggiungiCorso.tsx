@@ -42,7 +42,7 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
 
                 <h1>Aggiungi Nuovo Corso</h1>
                 <div>
-                    <label>Nome Corso (*)</label>
+                    <label>Nome Corso <b>(*)</b></label>
                     <input 
                         type="text" 
                         placeholder="Es. Tecnologie Web"
@@ -52,7 +52,7 @@ export function AggiungiCorso({hostName, closeForm, addCourse}: AggiungiCorsoPro
                 </div>
 
                 <div>
-                    <label>Nome Materia (*)</label>
+                    <label>Nome Materia <b>(*)</b></label>
                     <input 
                         type="text" 
                         placeholder="Es. Informatica"

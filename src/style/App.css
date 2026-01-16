@@ -76,9 +76,9 @@ nav div.level-1,
 nav div.level-2 {
 	background-color: transparent;
 	padding: 10px 35px;
-	color: #2C3E50;
+	color: var(--c-text-main);
 	border-radius: 15px;
-	border: 2px solid #2C3E50;
+	border: 2px solid var(--c-text-main);
 	cursor: pointer;
 	text-align: center;
 }
@@ -119,9 +119,9 @@ nav div.level-1 {
 }
 
 nav div.level-1:hover{
-	border: 2px solid #00838F;
+	border: 2px solid var(--c-primary);
 	background-color: rgba(205, 232, 232, 0.3);
-	color: #00838f;
+	color: var(--c-primary);
 }
 
 /* --- Livello 2 (sotto menu) --- */
@@ -130,7 +130,7 @@ nav div.level-2{
 	font-size: 0.9rem;
 	padding: 6px 12px;
 	border-radius: 10px;
-	background-color: rgba(120, 133, 133, 0.8);	/* TODO: trovare un background migliore per la visibilità */
+	background-color: rgba(120, 133, 133, 0.8);
 	border: none;
 	width: 100%;
 	box-sizing: border-box;
@@ -138,7 +138,7 @@ nav div.level-2{
 
 nav div.level-2:hover {
 	background-color: rgba(205, 232, 232, 0.85);
-	color: #00838f;
+	color: var(--c-primary);
 }
 
 /* --- FRECCIA E ANIMAZIONI --- */
@@ -160,7 +160,7 @@ nav.content-nav .dropdown.expanded > img {
 .main {
     grid-row-start: 2;
     grid-row-end: 3;
-	color: #2C3E50;
+	color: var(--c-text-main);
     background-color: rgb(225, 239, 239, 0.55);
     justify-content: stretch;
     align-items: stretch;
@@ -183,7 +183,7 @@ footer {
 	align-items: center;
 	grid-row-start: 3;
 	grid-row-end: 4;
-	background-color: #37474f;
+	background-color: var(--c-footer);
 	color: white;
 }
 
@@ -266,7 +266,7 @@ a:hover{
 	background-color: rgb(255, 241, 118, 0.6);
 	padding: 5px 10px;
 	font-weight: bold;
-	color: #2C3E50;
+	color: var(--c-text-main);
 	border-radius: 10px;
 	border: 2px solid rgb(252, 215, 53, 0.6);
 	margin-top: 10px;

@@ -12,6 +12,7 @@
 	flex-wrap: wrap;
 	gap: 20px;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .filter-item label{
@@ -31,6 +32,11 @@
 .filter-item select option:checked{
 	background-color: #FFF176 !important;
 	color: #D2005A !important;
+}
+
+.filter .actions{
+	display: flex;
+	column-gap: 20px;
 }
 
 .filter .form-action{
