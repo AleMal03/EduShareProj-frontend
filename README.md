@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# EduShare - Frontend Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 
-Currently, two official plugins are available:
+## 🎓 Contesto
+Progetto sviluppato per il corso di Tecnologie Web presso il Corso di Laurea in Informatica dell'Università degli Studi di Torino.
+Questo repository contiene l'interfaccia utente della piattaforma e-learning EduShare, un'applicazione web concepita come Single Page Application (SPA) e progettata per consumare in modo asincrono le API REST del server dedicato.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> ⚠️ **Architettura Disaccoppiata:** Questo repository contiene esclusivamente il Client Frontend sviluppato in React e TypeScript. 
+> Il server di backend (Java/Spring Boot) associato a questo progetto è disponibile qui: [EduShare Backend](https://github.com/AleMal03/EduShareProj-backend)
 
-## React Compiler
+## 🏗 Architettura & Stack Tecnologico
+- **Framework:** Sviluppo UI basato su React 19.
+- **Linguaggio:** TypeScript configurato in modalità `strict` per garantire type-safety, robustezza e prevenzione degli errori a tempo di compilazione.
+- **Build tool:** Utilizzo di Vite per compilare e impacchettare il progetto.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Funzionalità UI
+* **Navigazione Reattiva:** Transizioni fluide tra le viste (Corsi, Dashboard, Modifica Profilo) garantite dall'architettura SPA.
+* **Integrazione API:** Comunicazione asincrona con il backend per la gestione del fetching dei corsi (filtrati tramite il custom hook `useCorsi`) e la persistenza delle azioni utente.
+* **Gestione Stato & Sicurezza:** Adattamento dinamico dell'interfaccia in base al ruolo dell'utente loggato (Docente / Studente).
 
-## Expanding the ESLint configuration
+## 🚀 Installazione e Avvio
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Prerequisiti di Sistema**
+*   **Ambiente di esecuzione:** Node.js.
+*   **Package Manager:** NPM.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Setup dell'Ambiente**
+1. Clonare il repository in locale e posizionarsi nella cartella radice:
+   ```bash
+   git clone https://github.com/AleMal03/EduShareProj-frontend
+   cd EduShareProj-frontend
+   ```
+2. Installare le dipendenze del progetto definite nel `package.json`:
+   ```bash
+   npm install
+   ```
+3. Avviare l'ambiente in locale:
+   ```bash
+   npm run dev
+   ```
+Il client sarà accessibile all'indirizzo predefinito `http://localhost:5173`.
